@@ -27,24 +27,8 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form autocomplete="off" method="POST" action="{% url 'sitio:guardar_producto' %}" enctype="multipart/form-data">
+						<form accept-charset="UTF-8" autocomplete="off" method="POST" action="{% url 'sitio:guardar_producto' %}" enctype="multipart/form-data">
 							{% csrf_token %}
-
-							<details>
-								<summary class="btn animated-button col-md"> Colores</summary>
-								<div class="mt-2">
-									<label class="icon-paint-brush" for="fondo"> Fondo *</label>
-									<input type="color" name="fondo" id="fondo" class="form-control" required>
-								</div>
-
-								<div class="mt-2">
-									<label class="icon-paint-brush" for="etiquetas"> Etiquetas y Notas *</label>
-									<input type="color" name="etiquetas" id="etiquetas" class="form-control" required>
-								</div>								
-								
-							</details>
-							<hr class="bg-white">
-
 
 							<div class="mt-2">
 								<label class="icon-tag" for="categoria_producto"> Categoria del producto *</label>
@@ -55,14 +39,40 @@
 									{% endfor %}
 								</select>
 							</div>
+
 							<div class="mt-2">
 								<label class="icon-cube" for="nombre_producto"> Nombre *</label>
 								<input type="text" name="nombre" id="nombre" class="form-control text-center" placeholder="Nombre del producto" required>
 							</div>
 							<div class="mt-2">
 								<label class="icon-short_text" for="descripcion"> Descripciòn *</label>
-								<textarea class="form-control" name="descripcion" id="descripcion" placeholder="agregue una descripcion" rows="20"></textarea>
-							</div><hr class="bg-white">	
+
+								<textarea class="form-control" name="descripcion" id="descripcion" placeholder="agregue una descripcion" rows="10"></textarea>
+							</div><hr class="bg-white">
+
+
+
+							<details>
+								<summary class="btn animated-button col-md"> Contenido</summary>
+
+								<div class=" mt-2">
+									<label class="icon-book" for="tomo"> Tomo </label>
+									<input  class="form-control " type="file" name="tomo" placeholder="inserte el documento" accept="*/pdf">
+								</div>
+
+								<div class=" mt-2">
+									<label class="icon-play" for="video"> Video </label>
+									<input  class="form-control " type="text" name="video" placeholder="inserte la url del video">
+								</div>
+
+								<div class=" mt-2">
+									<label class="icon-pencil" for="problemas"> Problemas </label>
+									<input  class="form-control " type="file" name="problemas" placeholder="inserte el documento" accept="*/pdf">
+								</div>
+								
+							</details><hr class="bg-white">
+
+
 
 
 							<details>
@@ -326,27 +336,7 @@
 							</div>
 							<div class="modal-body">
 								<form autocomplete="off" method="POST" action="{% url 'sitio:editar_producto' i.id %}" enctype="multipart/form-data">
-									{% csrf_token %}
-									<!--<div class="form-check col-md">
-										<input type="checkbox" class="form-check-input" id="visualizacion">
-										<label class="form-check-label" for="visualizacion" id="checkbox-label">Mostrar en Sitio Web</label>
-									</div><hr class="bg-white">-->
-
-
-									<details>
-										<summary class="btn animated-button col-md"> Colores</summary>
-										<div class="mt-2">
-											<label class="icon-paint-brush" for="fondo"> Fondo *</label>
-											<input type="color" name="fondo" id="fondo" class="form-control" value="{{ i.fondo }}">
-										</div>
-
-										<div class="mt-2">
-											<label class="icon-paint-brush" for="etiquetas"> Etiquetas y Notas *</label>
-											<input type="color" name="etiquetas" id="etiquetas" class="form-control" value="{{ i.etiquetas }}">
-										</div>								
-
-									</details>
-									<hr class="bg-white">									
+									{% csrf_token %}									
 
 
 									<div class="mt-2">
@@ -364,10 +354,28 @@
 									</div>
 									<div class="mt-2">
 										<label class="icon-short_text" for="descripcion"> Descripciòn *</label>
-										<textarea class="form-control" name="descripcion" id="descripcion"  rows="20">{{ i.descripcion }}</textarea>
+										<textarea class="form-control" name="descripcion" id="descripcion"  rows="10">{{ i.descripcion }}</textarea>
 									</div><hr class="bg-white">	
 
+									<details>
+										<summary class="btn animated-button col-md"> Contenido</summary>
 
+										<div class=" mt-2">
+											<label class="icon-book" for="tomo"> Tomo </label>
+											<input  class="form-control " type="file" name="tomo" placeholder="inserte el documento" accept="*/pdf">
+										</div>
+
+										<div class=" mt-2">
+											<label class="icon-play" for="video"> Video </label>
+											<input  class="form-control " type="text" name="video" placeholder="inserte la url del video">
+										</div>
+
+										<div class=" mt-2">
+											<label class="icon-pencil" for="problemas"> Problemas </label>
+											<input  class="form-control " type="file" name="problemas" placeholder="inserte el documento" accept="*/pdf">
+										</div>
+										
+									</details><hr class="bg-white">
 
 									<details>
 										<summary class="btn col-md animated-button"> Imagenes</summary>
@@ -393,7 +401,7 @@
 									<hr class="bg-white">
 
 
-
+									
 
 
 									<details>

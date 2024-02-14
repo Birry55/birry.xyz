@@ -22,6 +22,9 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=200)
     fecha = models.DateTimeField(null=True, blank=True)
     descripcion = models.TextField()
+    tomo = models.FileField(upload_to='tomos',null=True, blank=True)
+    video = models.URLField(max_length=500, null=True, blank=True)
+    problemas = models.FileField(upload_to='problemas',null=True, blank=True)
     imagen1 = models.ImageField(upload_to='productos_imagenes',null=True, blank=True)
     imagen2 = models.ImageField(upload_to='productos_imagenes',null=True, blank=True)
     imagen3 = models.ImageField(upload_to='productos_imagenes', null=True, blank=True)
@@ -59,8 +62,7 @@ class Producto(models.Model):
     colum1_row10 = models.CharField(max_length=200, null=True, blank=True)
     colum2_row10 = models.CharField(max_length=200, null=True, blank=True)
     colum3_row10 = models.CharField(max_length=200, null=True, blank=True)
-    fondo = models.CharField(max_length=10, null=True, blank=True)
-    etiquetas = models.CharField(max_length=10, null=True, blank=True)
+
 
     def __str__(self):
         return self.nombre

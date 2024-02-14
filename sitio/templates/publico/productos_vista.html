@@ -3,12 +3,34 @@
 {% block titulo %}<title>Oferta de Productos</title>{% endblock %}
 {% block contenido_principal %}
 
-<div class="Destacados">
+<div class="Destacados col-md">
   <h2 class="text-center font-weight-bold">{{ producto_seleccionado.nombre }}</h2>
-  <p class="text-justify col-md m-1" style="color: {{ producto_seleccionado.etiquetas }}; font-size: 15px; white-space: pre-wrap;">
+  <p class="text-justify col-md m-1" style=" font-size: 15px; white-space: pre-line;">
     {{ producto_seleccionado.descripcion }}
   </p>
 
+  <div class="row mb-2">
+    
+    {% if producto_seleccionado.tomo.url is not none %}
+    <div class="col-md mt-1">
+      <a href="{{ producto_seleccionado.tomo.url }}" class="btn mt-3 col-md icon-book" target="_blank"> Ir a Tomo  </a>
+    </div>
+    {% endif %}
+
+    {% if producto_seleccionado.video is not none %}
+    <div class="col-md">
+      <a href="{{ producto_seleccionado.video }}" class="btn mt-3 col-md icon-play" target="_blank"> Ver Video  </a>
+    </div>
+    {% endif %}
+    
+    {% if producto_seleccionado.problemas.url is not none %}
+    <div class="col-md mt-1">
+      <a href="{{ producto_seleccionado.problemas.url }}" class="btn mt-3 col-md icon-pencil" target="_blank"> Problemas  </a>
+    </div>
+    {% endif %}
+
+
+  </div>
 
   {% if producto_seleccionado.head_colum1 is not none %}
   <div class="tabla table-responsive bg-light">
