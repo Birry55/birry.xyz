@@ -1,0 +1,143 @@
+{% extends 'publico/base.html' %}
+{% load static %}
+{% block titulo %}<title>Oferta de Productos</title>{% endblock %}
+{% block contenido_principal %}
+
+<div class="Destacados">
+  <h2 class="text-center font-weight-bold">{{ producto_seleccionado.nombre }}</h2>
+  <p class="text-justify col-md m-1" style="color: {{ producto_seleccionado.etiquetas }}; font-size: 15px; white-space: pre-wrap;">
+    {{ producto_seleccionado.descripcion }}
+  </p>
+
+
+  {% if producto_seleccionado.head_colum1 is not none %}
+  <div class="tabla table-responsive bg-light">
+    <table class="table table-striped">
+      <caption></caption>
+      <thead class="bg-secondary">
+        <tr>
+          <th scope="col">{{ producto_seleccionado.head_colum1 }}</th>
+          {% if producto_seleccionado.head_colum2 is not none %}
+          <th scope="col">{{ producto_seleccionado.head_colum2 }}</th>
+          {% endif %}
+          {% if producto_seleccionado.head_colum3 is not none %}
+          <th scope="col">{{ producto_seleccionado.head_colum3 }} </th>
+          {% endif %}
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row1 }}</td>
+          <td>{{ producto_seleccionado.colum2_row1 }}</td>
+          <td>{{ producto_seleccionado.colum3_row1 }}</td>
+        </tr>
+        {% if producto_seleccionado.colum1_row2 is not none %}
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row2 }}</td>
+          <td>{{ producto_seleccionado.colum2_row2 }}</td>
+          <td>{{ producto_seleccionado.colum3_row2 }}</td>
+        </tr>
+        {% endif %}
+
+
+        {% if producto_seleccionado.colum1_row3 is not none %}
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row3 }}</td>
+          <td>{{ producto_seleccionado.colum2_row3 }}</td>
+          <td>{{ producto_seleccionado.colum3_row3 }}</td>
+        </tr>
+        {% endif %}
+
+        {% if producto_seleccionado.colum1_row4 is not none %}
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row4 }}</td>
+          <td>{{ producto_seleccionado.colum2_row4 }}</td>
+          <td>{{ producto_seleccionado.colum3_row4 }}</td>
+        </tr>
+        {% endif %}
+
+        {% if producto_seleccionado.colum1_row5 is not none %}
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row5 }}</td>
+          <td>{{ producto_seleccionado.colum2_row5 }}</td>
+          <td>{{ producto_seleccionado.colum3_row5 }}</td>
+        </tr>
+        {% endif %}
+
+        {% if producto_seleccionado.colum1_row6 is not none %}
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row6 }}</td>
+          <td>{{ producto_seleccionado.colum2_row6 }}</td>
+          <td>{{ producto_seleccionado.colum3_row6 }}</td>
+        </tr>
+        {% endif %}
+
+        {% if producto_seleccionado.colum1_row7 is not none %}
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row7 }}</td>
+          <td>{{ producto_seleccionado.colum2_row7 }}</td>
+          <td>{{ producto_seleccionado.colum3_row7 }}</td>
+        </tr>
+        {% endif %}
+
+        {% if producto_seleccionado.colum1_row8 is not none %}
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row8 }}</td>
+          <td>{{ producto_seleccionado.colum2_row8 }}</td>
+          <td>{{ producto_seleccionado.colum3_row8 }}</td>
+        </tr>
+        {% endif %} 
+
+        {% if producto_seleccionado.colum1_row9 is not none %}      
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row9 }}</td>
+          <td>{{ producto_seleccionado.colum2_row9 }}</td>
+          <td>{{ producto_seleccionado.colum3_row9 }}</td>
+        </tr>
+        {% endif %} 
+
+        {% if producto_seleccionado.colum1_row10 is not none %}
+        <tr>
+          <td>{{ producto_seleccionado.colum1_row10 }}</td>
+          <td>{{ producto_seleccionado.colum2_row10 }}</td>
+          <td>{{ producto_seleccionado.colum3_row10 }}</td>
+        </tr>
+        {% endif %}                   
+      </tbody>
+    </table>
+  </div>
+  <br>
+  {% endif %}
+
+  <div class="row">
+    {% if producto_seleccionado.imagen1.url is not none %}
+    <div class="col-md-6">
+      <img class="d-block w-100 img-fluid" src="{{ producto_seleccionado.imagen1.url }}" alt="{{ producto_seleccionado.imagen1.name }}">
+      <figcaption>{{ producto_seleccionado.imagen1.name }}</figcaption>
+    </div>
+    {% endif %}
+    {% if producto_seleccionado.imagen2.url is not none %}
+    <div class="col-md-6">
+      <img class="d-block w-100" src="{{ producto_seleccionado.imagen2.url }}" alt="{{ producto_seleccionado.imagen2.name }}">
+      <figcaption>{{ producto_seleccionado.imagen2.name }}</figcaption>
+    </div>
+    {% endif %}
+    {% if producto_seleccionado.imagen3.url is not none %}
+    <div class="col-md-6">
+      <img class="d-block w-100" src="{{ producto_seleccionado.imagen3.url }}" alt="{{ producto_seleccionado.imagen3.name }}">
+      <figcaption>{{ producto_seleccionado.imagen3.name }}</figcaption>
+    </div>
+    {% endif %}
+    {% if producto_seleccionado.imagen4.url is not none %}
+    <div class="col-md-6">
+      <img class="d-block w-100" src="{{ producto_seleccionado.imagen4.url }}" alt="{{ producto_seleccionado.imagen4.name }}">
+      <figcaption>{{ producto_seleccionado.imagen4.name }}</figcaption>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+
+{% endblock %}

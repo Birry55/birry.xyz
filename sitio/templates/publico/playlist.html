@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="author" content="Juan Josè Berrio Galeano">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="imagen/icon" href="{% static 'sitio/images/logo4912.jpeg' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+	<link rel="stylesheet" href="{% static 'sitio/fonts/icomoon/style.css' %}">
+	<link rel="stylesheet" href="{% static 'sitio/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Bootstrap carrusel CSS -->
+	<link rel="stylesheet" href="{% static 'sitio/css/style.css' %}">
+	<link href="{% static 'sitio/css/carousel.css' %}" rel="stylesheet">
+	<title>Play list 49-12 Room</title>
+</head>
+<style>
+	.form-signin {
+		width: 100%;
+		max-width: 500px;
+		padding: 15px;
+		margin: 0 auto;
+	}
+</style>
+<body style="background-image: url({% static 'sitio/images/dj.gif' %}); background-size: cover;">
+	<div class=" mt-4 text-center form-signin">
+		<div class="col-md">
+			<img href= ""  src="{% static 'sitio/images/tibaecosystem10.png' %}" class="navbar-brand col-md" alt="4912 Logo" style=" width: 200px; background-size: cover;"> </Img>
+			<div class="reproductor">
+				<audio controls controlsList="nodownload"  loop> <source src="{{ cover.audio.url }}" type="audio/mpeg"></audio>
+				</div>
+			</div>
+		</div>
+		<br><br><br><br><br><br><br><br><br><br>
+		<div class="col-md mt-4 text-center ">
+			<a href="https://wa.me/573158979052" target="_blank" class=" lead"> TIBA Ecosystem &reg;</a><br>
+			<a href="{% url 'sitio:cover' %}" class="icon-arrow_back" target="_blank" title="Ir a Sitio" aria-label="ir a sitio"></a>
+			
+		</div>
+		
+		<script src="{% static 'sitio/js/jquery-3.3.1.min.js' %}"></script>
+		<script src="{% static 'sitio/js/bootstrap.min.js' %}"></script>	
+	</body>
+	</html>

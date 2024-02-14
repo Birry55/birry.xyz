@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="author" content="Juan Josè Berrio Galeano">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="imagen/icon" href="{{ cover.logo.url }}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+  <link rel="stylesheet" href="{% static 'sitio/fonts/icomoon/style.css' %}">
+  <link rel="stylesheet" href="{% static 'sitio/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap carrusel CSS -->
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
+  <!-- Bootstrap carrusel CSS -->
+  <link rel="stylesheet" href="{% static 'sitio/css/style.css' %}">
+  <title>{{ cover.empresa }}</title>
+</head>
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+</style>
+<body>
+  <header>
+
+    <nav class="navbar navbar-expand-lg navbar-light container "  style="background-color:white;">
+      <a class="navbar-brand" href="#"><img src="{{ cover.logo.url }}" width="100px" alt="imagen logo"></a>
+      <a class="nav-link btn1 icon-search  " data-toggle="modal" data-target="#buscarModal" title="Buscar" aria-label="buscar"></a>
+        <!--<a href="{% url 'sitio:comprar'  %}" class="btn1 nav-link icon-shopping-cart " title="Carrito" aria-label="Carrito" target="_blank">
+          <span class="badge badge-warning badge-pill">3</span>
+        </a> -->     
+        <button class="navbar-toggler btn" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" title="Menu">
+          <span class="navbar-toggler-icon"> </span>
+          <span class="navbar-toggler-icon-cross "></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto font-weight-bold">
+            <li class="nav-item ">
+              <a class="nav-link icon-home" href="{% url 'sitio:cover' %}"> Inicio</a>
+            </li>
+            <li class="dropdown nav-item">
+              <a class="  dropdown-toggle nav-link icon-list" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Indice
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for i in categorias %}
+                <a class="nav-link dropdown-item" href="{% url 'sitio:categoria' i.id %}">{{ i.nombre }}</a>
+                {% endfor %}
+              </div>
+            </li>
+
+            <li class="dropdown nav-item">
+              <a class="  dropdown-toggle nav-link icon-calculator" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Calcuadoras
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{% url 'sitio:simuladorcredito' %}" >Simulador de Credito</a>
+                <a class="dropdown-item" href="{% url 'sitio:mincostos' %}" >Minimización de Costos a largo Plazo</a>
+                <a class="dropdown-item" href="{% url 'sitio:maxbeneficio' %}" >Maximización del beneficio económico largo Plazo</a>
+              </div>
+            </li>
+
+            <li class="nav-item ">
+              <a class="nav-link icon-book" href="{% url 'sitio:documentos' %}" > Documentos</a>
+            </li>
+
+          </ul><hr>
+          <span class="navbar-text">    
+            <a href="https://wa.me/57{{ cover.whatsapp }}" class="icon-whatsapp text-right col-md" aria-label="Whatsapp" target="_blank" title="Whatsapp"></a>
+            <a href="tel:+57{{ cover.telefono }}" class="icon-phone text-right col-md" aria-label="llamar" target="_blank" title="Llamar" aria-label="Llamar"></a>
+            <a href="{{ cover.ubicacion }}" class="text-right col-md" aria-label="ubicación" target="_blank">&#x1F1E8;&#x1F1F4;</a>
+          </span>
+        </div>
+      </nav>
+
+
+
+
+
+    
+  </nav>
+</header>
+
+<!-- Modal buscar -->
+<div class="modal fade" id="buscarModal" tabindex="-1" role="dialog" aria-labelledby="buscarModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="buscarModalLabel">Buscar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form class=" mt-2 mt-md-0 ">
+          <input class="form-control mr-sm-2  col-md" type="text" placeholder="Buscar" aria-label="Search"><hr>
+          <button class="btn icon-search col-md" type="submit"> Buscar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal buscar -->
+
+
+
+<div class="">
+  {% block contenido_principal %}
+
+
+
+
+  {% endblock %}
+</div>
+<footer class="site-footer " style="background-color:#000;">
+  <div class="pt-5 text-muted text-center text-small">
+    <div class="row">
+      <div class="col mt-2">
+        <p class="text-justify col-md"> {{ cover.descripcion }}</p>
+      </div>
+      <div class="col-md">
+        <img href="" src="{{ cover.logo_footer.url }}" class="navbar-brand" alt="Logo Tiba Ecosystem con su nombre en braille" style="width: 150px; background-size: cover;"> <br>
+        <font size="5">   
+          <a href="https://wa.me/57{{ cover.whatsapp }}" class="icon-whatsapp text-right col-md" aria-label="Whatsapp" target="_blank" title="Whatsapp"></a>
+          <a href="tel:+57{{ cover.telefono }}" class="icon-phone text-right col-md" aria-label="llamar" target="_blank" title="Llamar" aria-label="Llamar"></a>
+          <a href="{{ cover.ubicacion }}" class="text-right col-md" aria-label="ubicación" target="_blank">&#x1F1E8;&#x1F1F4;</a>
+        </font>
+      </div>
+    </div><br>
+
+    <div class="row mt-2">
+      {% if cover.enlace_patrocinador1 is not none %}
+      <div class="col-md text-center">
+        <a href="{{ cover.enlace_patrocinador1.url }}" target="_blank"><img  src="{{ cover.logo_patrocinador1.url }}"  alt="" style="width: 100px; " >
+        </a>
+      </div>
+      {% endif %}
+
+      <div class="col-md">
+        <a href="{{ cover.enlace_patrocinador2.url }}" target="_blank"><img  src="{{ cover.logo_patrocinador2.url }}"  alt="" style="width: 100px; " >
+        </a>
+      </div>
+      <div class="col-md">
+        <a href="{{ cover.enlace_patrocinador3.url }}" target="_blank"><img  src="{{ cover.logo_patrocinador3.url }}"  alt="" style="width: 100px; " >
+        </a>
+      </div>
+      <div class="col-md">
+        <a href="{{ cover.enlace_patrocinador4.url }}" target="_blank"><img  src="{{ cover.logo_patrocinador4.url }}"  alt="" style="width: 100px; " >
+        </a>
+      </div>
+
+      <div class="col-md">
+        <a href="{{ cover.enlace_patrocinador5.url }}" target="_blank"><img  src="{{ cover.logo_patrocinador5.url }}" class="navbar-brand" alt="" style="width: 100px; " >
+        </a>
+      </div>
+
+    </div><br>
+   
+    <a href="{% url 'sitio:autenticacion' %}" class="nav-link icon-user " aria-label="Autenticar" title="Autenticar" target="_blank"> Autenticar</a>
+    <div class="col-md">
+      <p class="mb-1">&copy; 2023 | Todos los Derechos Reservados<br> <span><a href="https://wa.me/573158979052" target="_blank" class="border-bottom">Birry </a></span>
+      </p><br>
+    </div>
+    <a href="#">Back To Top</a>
+  </div>
+</footer> 
+<script src="{% static 'sitio/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'sitio/js/bootstrap.min.js' %}"></script> 
+<script>
+  const navbarToggler = document.querySelector('.navbar-toggler');
+  navbarToggler.addEventListener('click', function () {
+    this.classList.toggle('active');
+  });
+</script>
+<script>
+    // Generar partículas aleatorias
+  function generateParticles() {
+    const numParticles = 150;
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < numParticles; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      const randomSize = Math.floor(Math.random() * 4) + 2;
+      particle.style.width = `${randomSize}px`;
+      particle.style.height = `${randomSize}px`;
+      const randomTop = Math.random() * 100;
+      particle.style.top = `${randomTop}%`;
+      const randomLeft = Math.random() * 100;
+      particle.style.left = `${randomLeft}%`;
+      const randomDuration = Math.random() * 10 + 5;
+      particle.style.animationDuration = `${randomDuration}s`;
+      particlesContainer.appendChild(particle);
+    }
+  }
+  generateParticles();
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{% extends 'sitio/base.html' %}
+{% block titulo %}
+<title>Control de Ingresos</title>
+{% endblock %}
+{% block contenido_principal %}
+<div class="col-md">
+	<div class="site-section">
+		<h3 class="text-center mt-4"> Control de Ingresos </h3><hr class="bg-white">
+		<!--filtro-->
+		<button class="btn icon-search  m-1" data-toggle="modal" data-target="#modal_filtrar" title="Filtrar" aria-label="Filtrar "> </button>
+		<div class="modal fade text-dark col-md" id="modal_filtrar" tabindex="-1" role="dialog" aria-labelledby="modal_editar_producto" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content" style="background-color: rgb(33 ,33 , 33); color: #fff;">
+					<div class="modal-header">
+						<p class="text-center  col-md font-weight-bold"> 
+							<em class="font-weight-bold text-white"> Filtrar Control de Ingresos</em><br>
+						</p>
+						<button type="button" class="close display-3 " data-dismiss="modal" aria-label="Cerrar">
+							<span aria-hidden="true" class="text-danger"><font size="6">&times;</font></span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form name="filtro_facturas" id="" method="POST" action="{% url 'sitio:filtro_facturas' %}">
+							{% csrf_token %}
+							<div class="mt-2">
+								<label class="icon-calendar" for=""> Desde</label>
+								<input type="datetime-local" name="fecha_desde" id="" class="form-control text-center" >
+							</div>
+							<div class="mt-2">
+								<label class="icon-calendar" for=""> Hasta</label>
+								<input type="datetime-local" name="fecha_hasta" id="" class="form-control text-center">
+							</div>
+							<hr class="bg-white">
+							<button class="col-md icon-search btn" type="submit"> Filtrar</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--filtro-->
+		<div class="tabla table-responsive tablag  mt-3 font-weight-bold" width="auto" height="auto">
+			<table class="table table-striped table-bordered  text-center" id="tb_contactos">
+				<thead class="bg-dark">
+					<tr>
+						<th class=""> Factura Nº</th>
+						<th class=""> Fecha de Ejecuciòn</th>
+						<th class=""> Hora de Ejecucion </th>
+						<th  class=""> Responsable </th>
+						<th class="">  Domicilio </th>
+						<th  class="" style="width: auto;">Valor de Factura</th>
+						<th class=""style="width: auto;"> Valor Producto </th>
+						<th class="" style="width: auto;">Domicilio</th>
+						<th class="" width="120">Costo Estructural</th>
+						<th class="" style="width: auto;">Beneficio</th>			
+						<th> Opciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in transacciones %}
+					<tr>
+						<td>{{ i.id }}</td>
+						<td> {{ i.fecha|date }}</td>
+						<td> {{ i.fecha|time:'h:i A' }}</td>
+						<td> {{ i.tipo }}</td>
+						<td>{{ i.medio_pago }}</td>
+						<td class=""> {{ i.valor_factura|floatformat:'2g' }}</td>
+						<td class=" bg-dark"> {{ i.valor|floatformat:'2g' }}</td>
+						<td class=" ">  {{ i.costo|floatformat:'2g' }}</td>
+						<td class=" ">  {{ i.costo_estructural|floatformat:'2g' }}</td>
+						<td class=" bg-dark"> {{ i.beneficio|floatformat:'2g' }}</td>
+						<td class="">	
+							<a href="{% url 'sitio:resumen_factura' i.id %}" class="btn icon-style " title="Resumen de Factura" aria-label="Resumen de Factura" target="_blank"></a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot class="bg-dark">
+					<tr>
+						<td colspan="5" class="text-center"> TOTALES: </td>
+						<td class=""> {{ totales.valor_factura|floatformat:'2g' }}</td>
+						<td class=""> {{ totales.valor|floatformat:'2g' }}</td>
+						<td class=" "> {{ totales.costo|floatformat:'2g' }}</td>
+						<td class=" text-danger"> {{ totales.costo_estructural|floatformat:'2g' }}</td>
+						<td class="text-success"> {{ totales.beneficio|floatformat:'2g' }}</td>
+						<td ></td>											
+					</tr>
+				</tfoot>
+			</table><br>
+		</div>
+	</div>
+</div>
+{% endblock %}

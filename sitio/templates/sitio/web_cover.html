@@ -1,0 +1,318 @@
+{% extends 'sitio/base.html' %}
+{% load static %}
+{% block titulo %}
+<title>Sitio Web Cover</title>
+{% endblock %}
+{% block contenido_principal %}
+<div class="col-md-12 mt-4">
+	<div class="site-section">
+		{% if mensaje %}
+		<div class="alert alert-success alert-dismissible ">
+			<a href="#" class="close display-3" data-dismiss="alert" aria-label="Cerrar">&times;</a>
+			<em class="font-weight-bold text-center">{{ mensaje }}.</em>
+		</div>
+		{% endif %}
+		<h3 class="text-center"> Cover del Sitio Web </h3><hr class="bg-white">
+		{% if cover is none %}
+		<button class="btn animated-button icon-globe col-md-6" data-toggle="modal" data-target="#modal_agregar_contenido"> Agregar Contenido</button><hr class="bg-white">
+		<div class="modal fade text-dark col-md-12" id="modal_agregar_contenido" tabindex="-1" role="dialog" aria-labelledby="modal_agregar_contenido" aria-hidden="true" >
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content" style="background-color: rgb(33 ,33 , 33); color: #fff;">
+					<div class="modal-header">
+						<p class="text-center  col-md font-weight-bold"> 
+							<em class="font-weight-bold text-white"> Agregar / Modificar Contenido</em><br>
+						</p>
+						<button type="button" class="close display-3 " data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true" class="text-danger"><font size="6">&times;</font></span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form autocomplete="off" method="POST" action="{% url 'sitio:guardar_cover' %}" enctype="multipart/form-data">
+							{% csrf_token %}
+							<h5 class="text-center mt-2">  Principal</h5>
+							<div class="col-md-12 mt-2">
+								<label class="icon-briefcase" for="empresa"> Empresa</label>
+								<input type="text" name="empresa" id="empresa" class="form-control text-center" placeholder="Escriba el Nombre de la empresa" value="">
+							</div>
+							<div class="col-md-12 mt-2">
+								<label class="icon-book" for="descripcion" id="descripcion"> Descripcion principal</label>
+								<textarea id="descripcion" name="descripcion" class="form-control" rows="8" ></textarea>
+							</div>
+							<div class="col-md-12  mt-2">
+								<label class="icon-image" for="logo" id="logo"> Logo Empresa</label>
+								<input type="file" class="form-control" name="logo" accept="image/*" >
+							</div>
+							<div class="col-md-12  mt-2">
+								<label class="icon-image" for="logo_footer" id="logo_footer"> Logo Footer</label>
+								<input type="file" class="form-control" name="logo_footer" accept="image/*" >
+							</div>
+							<hr class="bg-white">
+							<h5 class="text-center"> Redes Sociales</h5>
+							<div class="alert alert-dark alert-dismissible  m-3">
+								<a href="#" class="close " data-dismiss="alert" aria-label="close">&times;</a>
+								<strong class="text-danger">Hola!</strong>  Copie Y pegue los enlaces correspondientes  en las redes de face e inst , escriba el numero de whatsapp.
+							</div>
+							<div class="fila6 row redes">
+								<div class="col-md-12 mt-2">
+									<label class="icon-whatsapp" for="whatsapp"> Numero Whatsapp</label>
+									<input type="number" name="whatsapp" id="whatsapp" class="form-control text-center" placeholder=" NO es necesario el indicativo pais ">
+								</div>
+								<div class="col-md-12 mt-2">
+									<label class="icon-phone" for="telefono"> Numero Telefonico</label>
+									<input type="number" name="telefono" id="telefono" class="form-control text-center" placeholder=" NO es necesario el indicativo pais">
+								</div>
+								<div class="col-md-12 mt-2">
+									<label class="icon-map-marker" for="ubicacion"> Enlace a la ubicacion</label>
+									<input type="text" name="ubicacion" id="ubicacion" class="form-control text-center" placeholder="abra el mapa y pegue en enlace de la direccion">
+								</div>
+							</div><hr class="bg-white">
+
+							<details>
+								<summary class="btn animated-button col-md"> Patrocinadores</summary>
+
+								<div class="col-md-12  mt-2">
+									<label class="icon-image" for="logo_patrocinador1" id="logo_patrocinador1"> logo Patrocinador 1</label>
+									<input type="file" class="form-control" name="logo_patrocinador1" accept="image/*">
+								</div>
+								<div class="col-md-12 mt-2">
+									<label class="icon-map-marker" for="enlace_patrocinador1"> Enlace patrocinador 1</label>
+									<input type="text" name="enlace_patrocinador1" id="enlace_patrocinador1" class="form-control text-center" placeholder="abra el mapa y pegue en enlace de la direccion">
+								</div>
+								<hr class="bg-white">
+
+								<div class="col-md-12  mt-2">
+									<label class="icon-image" for="logo_patrocinador2" id="logo_patrocinador2"> logo Patrocinador 2</label>
+									<input type="file" class="form-control" name="logo_patrocinador2" accept="image/*">
+								</div>
+								<div class="col-md-12 mt-2">
+									<label class="icon-map-marker" for="enlace_patrocinador2"> Enlace patrocinador 2</label>
+									<input type="text" name="enlace_patrocinador2" id="enlace_patrocinador2" class="form-control text-center" placeholder="abra el mapa y pegue en enlace de la direccion">
+								</div>
+								<hr class="bg-white">
+
+								<div class="col-md-12  mt-2">
+									<label class="icon-image" for="logo_patrocinador3" id="logo_patrocinador3"> logo Patrocinador 3</label>
+									<input type="file" class="form-control" name="logo_patrocinador3" accept="image/*" >
+								</div>
+								<div class="col-md-12 mt-2">
+									<label class="icon-map-marker" for="enlace_patrocinador3"> Enlace patrocinador 3</label>
+									<input type="text" name="enlace_patrocinador3" id="enlace_patrocinador3" class="form-control text-center" placeholder="abra el mapa y pegue en enlace de la direccion">
+								</div>
+								<hr class="bg-white">
+
+								<div class="col-md-12  mt-2">
+									<label class="icon-image" for="logo_patrocinador4" id="logo_patrocinador4"> logo Patrocinador 4</label>
+									<input type="file" class="form-control" name="logo_patrocinador4" accept="image/*" >
+								</div>
+								<div class="col-md-12 mt-2">
+									<label class="icon-map-marker" for="enlace_patrocinador4"> Enlace patrocinador 4</label>
+									<input type="text" name="enlace_patrocinador4" id="enlace_patrocinador4" class="form-control text-center" placeholder="abra el mapa y pegue en enlace de la direccion">
+								</div>
+								<hr class="bg-white">
+
+								<div class="col-md-12  mt-2">
+									<label class="icon-image" for="logo_patrocinador5" id="logo_patrocinador5"> logo Patrocinador 5</label>
+									<input type="file" class="form-control" name="logo_patrocinador5" accept="image/*" >
+								</div>
+								<div class="col-md-12 mt-2">
+									<label class="icon-map-marker" for="enlace_patrocinador2"> Enlace patrocinador 5</label>
+									<input type="text" name="enlace_patrocinador5" id="enlace_patrocinador5" class="form-control text-center" placeholder="abra el mapa y pegue en enlace de la direccion">
+								</div>
+								<hr class="bg-white">
+
+							</details><hr class="bg-white">
+
+
+
+							<div class="boton">
+								<button class="btn animated-buttonbtn animated_button-white col-md-12 icon-check" type="submit"> Aceptar</button>
+								<input type="hidden" name="cover_id" id="cover_id" value="{{ cover_id }}">
+							</div>
+						</form><hr class="bg-white">
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		<div class="lista de contenidos">
+			<h5 class="text-center"> Contenido Sitio Web </h5><hr class="bg-white">
+			{% if cover %}
+			<div class=" mt-4 ">
+				<h3 class="btn animated-button icon-image col-md-12"> Principal</h3> 
+				<ul class="mt-3">
+					<li> Empresa: <br>
+						<p> {{ cover.empresa }} </p>
+					</li>
+					<li> Descripcion : <br>
+						<p> {{ cover.descripcion }} </p>
+					</li>					
+					<li> Logo <br>
+						<img  src="{{ cover.logo.url }}" class="" alt="Imagen carrusel " width="auto" height="120"></Img>
+					</li>
+					
+
+					<li> Logo Footer <br>
+						<img  src="{{ cover.logo_footer.url }}" class="" alt="Imagen carrusel " width="auto" height="120"></Img>
+					</li>
+
+					<li> patrocinador 1 <br>
+						<img  src="{{ cover.logo_patrocinador1.url }}" class="" alt="Imagen carrusel " width="auto" height="120"></Img>
+					</li>
+
+					<li> patrocinador 2 <br>
+						<img  src="{{ cover.logo_patrocinador2.url }}" class="" alt="Imagen carrusel " width="auto" height="120"></Img>
+					</li>
+
+					<li> patrocinador 3 <br>
+						<img  src="{{ cover.logo_patrocinador3.url }}" class="" alt="Imagen carrusel " width="auto" height="120"></Img>
+					</li>
+
+					<li> patrocinador 4 <br>
+						<img  src="{{ cover.logo_patrocinador4.url }}" class="" alt="Imagen carrusel " width="auto" height="120"></Img>
+					</li>
+
+					<li> patrocinador 5 <br>
+						<img  src="{{ cover.logo_patrocinador5.url }}" class="" alt="Imagen carrusel " width="auto" height="120"></Img>
+					</li>					
+
+				</ul>
+				<h3 class="btn animated-button icon-globe col-md-12"> Redes Contacto y Ubicacion</h3> 
+				<ul class="mt-3">
+					<li> Numero Whatsapp : <br>
+						<textarea class="form-control" readonly> +57 {{ cover.whatsapp }} </textarea>
+					</li>
+					<li> Numero Telefono : <br>
+						<textarea class="form-control" readonly> +57 {{ cover.telefono }} </textarea>
+					</li>
+					<li> Ubicacion : <br>
+						<textarea class="form-control" readonly rows="4"> {{ cover.ubicacion }} </textarea>
+					</li>
+				</ul><hr class="bg-white">
+				<div class="botones col-md-12">
+					<a class="btn animated-button icon-edit" data-toggle="modal" data-target="#modal_editar_contenido" title="Editar" aria-label="Editar" > Editar</a>
+				</div>
+
+				<div class="modal fade text-dark col-md-12" id="modal_editar_contenido" tabindex="-1" role="dialog" aria-labelledby="modal_editar_contenido" aria-hidden="true" >
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content" style="background-color: rgb(33 ,33 , 33); color: #fff;">
+							<div class="modal-header">
+								<p class="text-center  font-weight-bold"> 
+									<em class="font-weight-bold text-white"> Modificar Contenido</em><br>
+								</p>
+								<button type="button" class="close display-3 " data-dismiss="modal" aria-label="Cerrar">
+									<span aria-hidden="true" class="text-danger"><font size="6">&times;</font></span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form autocomplete="off" method="POST" action="{% url 'sitio:editar_cover' cover.id %}" enctype="multipart/form-data">
+									{% csrf_token %}
+									<h5 class="text-center mt-2">  Principal</h5>
+									<div class="col-md-12 mt-2">
+										<label class="icon-briefcase" for="empresa"> Empresa</label>
+										<input type="text" name="empresa" id="empresa" class="form-control text-center" placeholder="Escriba el Nombre de la empresa" value="{{ cover.empresa }}">
+									</div>
+									<div class="col-md-12 mt-2">
+										<label class="icon-book" for="descripcion" id="descripcion"> Descripcion principal</label>
+										<textarea id="descripcion" name="descripcion" class="form-control" rows="8" >{{ cover.descripcion }}</textarea>
+									</div>
+									<div class="col-md-12  mt-2">
+										<label class="icon-image" for="logo" id="logo"> Logo Empresa</label>
+										<input type="file" class="form-control" name="logo" accept="image/*">
+									</div><hr class="bg-white">
+
+									<div class="col-md-12  mt-2">
+										<label class="icon-image" for="logo_footer" id="logo_footer"> Logo Footer</label>
+										<input type="file" class="form-control" name="logo_footer" accept="image/*" >
+									</div>
+
+									<h5 class="text-center"> Redes Sociales</h5>
+									<div class="alert alert-dark alert-dismissible  m-3">
+										<a href="#" class="close " data-dismiss="alert" aria-label="close">&times;</a>
+										<strong class="text-danger">Hola!</strong>  Copie Y pegue los enlaces correspondientes  en las redes de face e inst , escriba el numero de whatsapp.
+									</div>
+									<div class="fila6 row redes">
+										<div class="col-md-12 mt-2">
+											<label class="icon-whatsapp" for="whatsapp"> Numero Whatsapp</label>
+											<input type="number" name="whatsapp" id="whatsapp" class="form-control text-center" placeholder=" NO es necesario el indicativo pais " value="{{ cover.whatsapp }}">
+										</div>
+										<div class="col-md-12 mt-2">
+											<label class="icon-phone" for="telefono"> Numero Telefonico</label>
+											<input type="number" name="telefono" id="telefono" class="form-control text-center" placeholder=" NO es necesario el indicativo pais" value="{{ cover.telefono }}">
+										</div>
+										<div class="col-md-12 mt-2">
+											<label class="icon-map-marker" for="ubicacion"> Enlace a la ubicacion</label>
+											<input type="text" name="ubicacion" id="ubicacion" class="form-control text-center" placeholder="abra el mapa y pegue en enlace de la direccion" value="{{ cover.ubicacion }}">
+										</div>
+									</div><hr class="bg-white">
+
+									<details>
+										<summary class="btn animated-button col-md"> Patrocinadores</summary>
+
+										<div class="col-md-12  mt-2">
+											<label class="icon-image" for="logo_patrocinador1" id="logo_patrocinador1"> logo Patrocinador 1</label>
+											<input type="file" class="form-control" name="logo_patrocinador1" accept="image/*" >
+										</div>
+										<div class="col-md-12 mt-2">
+											<label class="icon-map-marker" for="enlace_patrocinador1"> Enlace patrocinador 1</label>
+											<input type="text" name="enlace_patrocinador1" id="enlace_patrocinador1" class="form-control text-center"  value="{{ cover.enlace_patrocinador1 }}">
+										</div>
+										<hr class="bg-white">
+
+										<div class="col-md-12  mt-2">
+											<label class="icon-image" for="logo_patrocinador2" id="logo_patrocinador2"> logo Patrocinador 2</label>
+											<input type="file" class="form-control" name="logo_patrocinador2" accept="image/*" >
+										</div>
+										<div class="col-md-12 mt-2">
+											<label class="icon-map-marker" for="enlace_patrocinador2"> Enlace patrocinador 2</label>
+											<input type="text" name="enlace_patrocinador2" id="enlace_patrocinador2" class="form-control text-center" value="{{ cover.enlace_patrocinador2 }}">
+										</div>
+										<hr class="bg-white">
+
+										<div class="col-md-12  mt-2">
+											<label class="icon-image" for="logo_patrocinador3" id="logo_patrocinador3"> logo Patrocinador 3</label>
+											<input type="file" class="form-control" name="logo_patrocinador3" accept="image/*" >
+										</div>
+										<div class="col-md-12 mt-2">
+											<label class="icon-map-marker" for="enlace_patrocinador3"> Enlace patrocinador 3</label>
+											<input type="text" name="enlace_patrocinador3" id="enlace_patrocinador3" class="form-control text-center" value="{{ cover.enlace_patrocinador3 }}">
+										</div>
+										<hr class="bg-white">
+
+										<div class="col-md-12  mt-2">
+											<label class="icon-image" for="logo_patrocinador4" id="logo_patrocinador4"> logo Patrocinador 4</label>
+											<input type="file" class="form-control" name="logo_patrocinador4" accept="image/*" >
+										</div>
+										<div class="col-md-12 mt-2">
+											<label class="icon-map-marker" for="enlace_patrocinador4"> Enlace patrocinador 4</label>
+											<input type="text" name="enlace_patrocinador4" id="enlace_patrocinador4" class="form-control text-center" value="{{ cover.enlace_patrocinador4 }}">
+										</div>
+										<hr class="bg-white">
+
+										<div class="col-md-12  mt-2">
+											<label class="icon-image" for="logo_patrocinador5" id="logo_patrocinador5"> logo Patrocinador 5</label>
+											<input type="file" class="form-control" name="logo_patrocinador5" accept="image/*" >
+										</div>
+										<div class="col-md-12 mt-2">
+											<label class="icon-map-marker" for="enlace_patrocinador2"> Enlace patrocinador 5</label>
+											<input type="text" name="enlace_patrocinador5" id="enlace_patrocinador5" class="form-control text-center" value="{{ cover.enlace_patrocinador5 }}">
+										</div>
+										<hr class="bg-white">
+
+									</details><hr class="bg-white">
+
+
+									<div class="boton">
+										<button class="btn animated-buttonbtn animated_button-white col-md-12 icon-check" type="submit"> Aceptar</button>
+										<input type="hidden" name="cover_id" id="cover_id" value="{{ cover_id }}">
+									</div>
+								</form><hr class="bg-white">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

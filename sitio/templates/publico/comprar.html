@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="author" content="Juan Josè Berrio Galeano">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="imagen/icon" href="{% static 'sitio/images/logo.png' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+	<link rel="stylesheet" href="{% static 'sitio/fonts/icomoon/style.css' %}">
+	<link rel="stylesheet" href="{% static 'sitio/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Bootstrap carrusel CSS -->
+	<link rel="stylesheet" href="{% static 'sitio/css/style.css' %}">
+	<link href="{% static 'sitio/css/carousel.css' %}" rel="stylesheet">
+	<title>logo </title>
+</head>
+<style>
+	.form-signin {
+		width: 100%;
+		max-width: 600px;
+		padding: 15px;
+		margin: 0 auto;
+	}
+</style>
+<body >
+	<div class="site-wrap mt-4 container">
+		<h2 class="text-center">Verificacion de  Pedido</h2><hr>
+		<div class="col-md text-center mt-3">
+			<img src="{% static 'sitio/images/logo.png' %}" class="" alt="logo" style=" width: 150px; background-size: cover;" ></Img>
+		</div><br>
+		{% if mensaje %}
+		<div class="alert alert-success alert-dismissible ">
+			<a href="#" class="close display-3" data-dismiss="alert" aria-label="Cerrar">&times;</a>
+			<em class="font-weight-bold text-center">{{ mensaje }}.</em>
+		</div>
+		{% endif %}
+
+
+		<div class="table-responsive">          
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Producto</th>
+						<th>Precio Unitario</th>
+						<th>Cantidad</th>
+						<th>Precio Acumulado</th>
+						<th> Eliminar </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td><img class="" src="{% static 'sitio/images/logo.png' %}" alt="{{ i.imagen1.name }}" style=" width: 150px; background-size: cover;"></td>
+	
+						<td class="icon-attach_money">35</td>
+						<td>
+							<div class="input-gro">
+								<span class="input-group-btn">
+									<button type="button" class="btn animated-button col-md" data-type="minus" data-field="cantidad">
+										<i class="icon-minus"></i>
+									</button>
+								</span>
+								<input type="text" name="cantidad" id="cantidad" class="form-control text-center" value="1" min="1" required>
+								<span class="input-group-btn">
+									<button type="button" class="btn animated-button col-md" data-type="plus" data-field="cantidad">
+										<i class="icon-plus"></i>
+									</button>
+								</span>
+							</div>        	
+						</td>
+						<td class="icon-attach_money"> 450000</td>
+						<td> <a class="icon-trash btn"> </td>
+					</tr>
+				</tbody>
+			</table>
+		</div><hr>
+
+		<div class="col-md">
+			<p class="text-center font-weight-bold"><font size="5">Valor Total: XXXXXXX </font></p>
+
+
+		</div>
+
+
+
+	</div>
+
+
+
+<script src="{% static 'sitio/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'sitio/js/bootstrap.min.js' %}"></script>	
+<script>
+    // Obtener el campo "cantidad" y los botones de incremento y decremento
+	const cantidadInput = document.getElementById("cantidad");
+	const btnMinus = document.querySelector("button[data-type='minus']");
+	const btnPlus = document.querySelector("button[data-type='plus']");
+    // Manejador para el botón de decremento
+	btnMinus.addEventListener("click", () => {
+		const currentValue = parseInt(cantidadInput.value);
+		if (currentValue > 1) {
+			cantidadInput.value = currentValue - 1;
+		}
+	});
+    // Manejador para el botón de incremento
+	btnPlus.addEventListener("click", () => {
+		const currentValue = parseInt(cantidadInput.value);
+		cantidadInput.value = currentValue + 1;
+	});
+</script>
+</body>
+</html>

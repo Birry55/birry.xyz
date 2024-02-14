@@ -1,0 +1,512 @@
+{% extends 'sitio/base.html' %}
+{% load static %}
+{% load static %}
+{% block titulo %}
+<title>Productos</title>
+{% endblock %}
+{% block contenido_principal %}
+<div class="col-md mt-4">
+	<div class="site-section">
+		{% if mensaje %}
+		<div class="alert alert-success alert-dismissible ">
+			<a href="#" class="close display-3" data-dismiss="alert" aria-label="Cerrar">&times;</a>
+			<em class="font-weight-bold text-center">{{ mensaje }}.</em>
+		</div>
+		{% endif %}
+		<h3 class="text-center"> Productos </h3><hr class="bg-white">
+		<button class="btn animated-button  icon-cube col-md-6" data-toggle="modal" data-target="#modal_agregar_producto"> Agregar Producto</button><hr class="bg-white">
+		<div class="modal fade text-dark col-md" id="modal_agregar_producto" tabindex="-1" role="dialog" aria-labelledby="modal_agregar_producto" aria-hidden="true" >
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content" style="background-color: rgb(33 ,33 , 33); color: #fff;">
+					<div class="modal-header">
+						<p class="text-center col-md font-weight-bold"> 
+							<em class="font-weight-bold text-white"> Agregar Producto</em><br>
+						</p>
+						<button type="button" class="close display-3 " data-dismiss="modal" aria-label="Cerrar">
+							<span aria-hidden="true" class="text-danger"><font size="6">&times;</font></span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form autocomplete="off" method="POST" action="{% url 'sitio:guardar_producto' %}" enctype="multipart/form-data">
+							{% csrf_token %}
+
+							<details>
+								<summary class="btn animated-button col-md"> Colores</summary>
+								<div class="mt-2">
+									<label class="icon-paint-brush" for="fondo"> Fondo *</label>
+									<input type="color" name="fondo" id="fondo" class="form-control" required>
+								</div>
+
+								<div class="mt-2">
+									<label class="icon-paint-brush" for="etiquetas"> Etiquetas y Notas *</label>
+									<input type="color" name="etiquetas" id="etiquetas" class="form-control" required>
+								</div>								
+								
+							</details>
+							<hr class="bg-white">
+
+
+							<div class="mt-2">
+								<label class="icon-tag" for="categoria_producto"> Categoria del producto *</label>
+								<select name="categoria" id="categoria" class="form-control text-center " aria-placeholder="Seleccione Categoría del Producto" required >
+									<option value="">Seleccione </option>
+									{% for categoria in categorias %}
+									<option value="{{ categoria.id }}"> {{ categoria.nombre }} </option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="mt-2">
+								<label class="icon-cube" for="nombre_producto"> Nombre *</label>
+								<input type="text" name="nombre" id="nombre" class="form-control text-center" placeholder="Nombre del producto" required>
+							</div>
+							<div class="mt-2">
+								<label class="icon-short_text" for="descripcion"> Descripciòn *</label>
+								<textarea class="form-control" name="descripcion" id="descripcion" placeholder="agregue una descripcion" rows="20"></textarea>
+							</div><hr class="bg-white">	
+
+
+							<details>
+								<summary class="btn col-md animated-button"> Imagenes</summary>
+								<div class="mt-2">
+									<label class="icon-image" for="imagen_producto1"> Imagen 1 *</label>
+									<input type="file" name="imagen1" id="imagen1" class="form-control" accept="image/*" >
+								</div>
+								<div class="mt-2">
+									<label class="icon-image" for="imagen_producto2"> Imagen 2 *</label>
+									<input type="file" name="imagen2" id="imagen2" class="form-control" accept="image/*" >
+								</div>
+								<div class="mt-2">
+									<label class="icon-image" for="imagen_producto3"> Imagen 3</label>
+									<input type="file" name="imagen3" id="imagen3" class="form-control" accept="image/*" >
+								</div>
+								<div class="mt-2">
+									<label class="icon-image" for="imagen_producto4"> Imagen 4</label>
+									<input type="file" name="imagen4" id="imagen4" class="form-control" accept="image/*" >
+								</div>
+							</details>
+							<hr class="bg-white">
+
+							<details>
+								<summary class="btn animated-button col-md"> Agregar Tabla</summary><hr>
+								<p class=" col-md"> Agregar Head</p>
+								<div class="mt-2">
+									<label class="icon-short_text" for="head_colum1"> Head colum 1 </label>
+									<input type="text" name="head_colum1" id="head_colum1" class="form-control text-center" placeholder="Head colum 1 " >
+								</div>	
+								<div class="mt-2">
+									<label class="icon-short_text" for="head_colum2"> Head colum 2 </label>
+									<input type="text" name="head_colum2" id="head_colum2" class="form-control text-center" placeholder="Head colum 2 " >
+								</div>
+								<div class="mt-2">
+									<label class="icon-short_text" for="head_colum3"> Head colum 3 </label>
+									<input type="text" name="head_colum3" id="head_colum3" class="form-control text-center" placeholder="Head colum 3 " >
+								</div><hr class="bg-white">
+
+								<details class="fila 1">
+									<summary class="btn animated-button col-md"> Fila 1</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row1"> Colum 1  </label>
+										<input type="text" name="colum1_row1" id="colum1_row1" class="form-control text-center" placeholder=" colum 1 row1" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row1"> Colum 2  </label>
+										<input type="text" name="colum2_row1" id="colum2_row1" class="form-control text-center" placeholder=" colum 2 row1" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row1"> Colum 3  </label>
+										<input type="text" name="colum3_row1" id="colum3_row1" class="form-control text-center" placeholder=" colum 3 row1" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 2">
+									<summary class="btn animated-button col-md"> Fila 2</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row2"> Colum 1  </label>
+										<input type="text" name="colum1_row2" id="colum1_row2" class="form-control text-center" placeholder=" colum 1 row2" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row2"> Colum 2  </label>
+										<input type="text" name="colum2_row2" id="colum2_row2" class="form-control text-center" placeholder=" colum 2 row 2" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row2"> Colum 3  </label>
+										<input type="text" name="colum3_row2" id="colum3_row2" class="form-control text-center" placeholder=" colum 3 row 2" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 3">
+									<summary class="btn animated-button col-md"> Fila 3</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row3"> Colum 1  </label>
+										<input type="text" name="colum1_row3" id="colum1_row3" class="form-control text-center" placeholder=" colum 1 row3" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row3"> Colum 2  </label>
+										<input type="text" name="colum2_row3" id="colum2_row3" class="form-control text-center" placeholder=" colum 2 row 2" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row3"> Colum 3  </label>
+										<input type="text" name="colum3_row3" id="colum3_row3" class="form-control text-center" placeholder=" colum 3 row 3" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 4">
+									<summary class="btn animated-button col-md"> Fila 4</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row4"> Colum 1  </label>
+										<input type="text" name="colum1_row4" id="colum1_row4" class="form-control text-center" placeholder=" colum 1 row4" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row4"> Colum 2  </label>
+										<input type="text" name="colum2_row4" id="colum2_row4" class="form-control text-center" placeholder=" colum 2 row 4" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row4"> Colum 3  </label>
+										<input type="text" name="colum3_row4" id="colum3_row4" class="form-control text-center" placeholder=" colum 3 row 4" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 5">
+									<summary class="btn animated-button col-md"> Fila 5</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row5"> Colum 1  </label>
+										<input type="text" name="colum1_row5" id="colum1_row5" class="form-control text-center" placeholder=" colum 1 row5" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row5"> Colum 2  </label>
+										<input type="text" name="colum2_row5" id="colum2_row5" class="form-control text-center" placeholder=" colum 2 row 5" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row5"> Colum 3  </label>
+										<input type="text" name="colum3_row5" id="colum3_row5" class="form-control text-center" placeholder=" colum 3 row 5" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 6">
+									<summary class="btn animated-button col-md"> Fila 6</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row6"> Colum 1  </label>
+										<input type="text" name="colum1_row6" id="colum1_row6" class="form-control text-center" placeholder=" colum 1 row6" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row6"> Colum 2  </label>
+										<input type="text" name="colum2_row6" id="colum2_row6" class="form-control text-center" placeholder=" colum 2 row6" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row6"> Colum 3  </label>
+										<input type="text" name="colum3_row6" id="colum3_row6" class="form-control text-center" placeholder=" colum 3 row6" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 7">
+									<summary class="btn animated-button col-md"> Fila 7</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row7"> Colum 1  </label>
+										<input type="text" name="colum1_row7" id="colum1_row7" class="form-control text-center" placeholder=" colum 1 row7" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row7"> Colum 2  </label>
+										<input type="text" name="colum2_row7" id="colum2_row7" class="form-control text-center" placeholder=" colum 2 row 2" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row7"> Colum 3  </label>
+										<input type="text" name="colum3_row7" id="colum3_row7" class="form-control text-center" placeholder=" colum 3 row 2" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 8">
+									<summary class="btn animated-button col-md"> Fila 8</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row8"> Colum 1  </label>
+										<input type="text" name="colum1_row8" id="colum1_row8" class="form-control text-center" placeholder=" colum 1 row8" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row8"> Colum 2  </label>
+										<input type="text" name="colum2_row8" id="colum2_row8" class="form-control text-center" placeholder=" colum 2 row 2" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row8"> Colum 3  </label>
+										<input type="text" name="colum3_row8" id="colum3_row8" class="form-control text-center" placeholder=" colum 3 row 2" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 9">
+									<summary class="btn animated-button col-md"> Fila 9</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row9"> Colum 1  </label>
+										<input type="text" name="colum1_row9" id="colum1_row9" class="form-control text-center" placeholder=" colum 1 row9" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row9"> Colum 2  </label>
+										<input type="text" name="colum2_row9" id="colum2_row9" class="form-control text-center" placeholder=" colum 2 row 2" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row9"> Colum 3  </label>
+										<input type="text" name="colum3_row9" id="colum3_row9" class="form-control text-center" placeholder=" colum 3 row 2" >
+									</div>								
+								</details><hr class="bg-white">
+
+								<details class="fila 10">
+									<summary class="btn animated-button col-md"> Fila 10</summary><hr>
+									<p class=" col-md"> Agregar contenido</p>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum1_row10"> Colum 1  </label>
+										<input type="text" name="colum1_row10" id="colum1_row10" class="form-control text-center" placeholder=" colum 1 row10" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum2_row10"> Colum 2  </label>
+										<input type="text" name="colum2_row10" id="colum2_row10" class="form-control text-center" placeholder=" colum 2 row 2" >
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="colum3_row10"> Colum 3  </label>
+										<input type="text" name="colum3_row10" id="colum3_row10" class="form-control text-center" placeholder=" colum 3 row 2" >
+									</div>								
+								</details><hr class="bg-white">
+
+							</details>
+							<hr class="bg-white">
+
+
+
+
+
+
+							<button class="col-md icon-check btn animated-button " type="submit"> Agregar Producto</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="lista de productos">
+			<h5 class="text-center"> Lista de Contenido </h5><hr class="bg-white">
+			<form method="POST" action="{% url 'sitio:filtro_categoria' %}">
+				{% csrf_token %}
+				<div class="mt-2">
+					<label class="icon-tag" for="categoria_producto"> Mostrar Contenido de</label>
+					<div class="row col-md">
+						<select  name="categoria" id="categoria" class="form-control text-center col-md" aria-placeholder="Seleccione Categoría del Producto">
+							<option value=""> Todas las Categorias</option>
+							{% for categoria in categorias %}
+							<option value="{{ categoria.id }}"> {{ categoria.nombre }} </option>
+							{% endfor %}
+						</select>
+						<div class="col-md mt-1">
+							<button type="submit" class="btn animated-button  icon-filter" title="Filtrar">Filtrar</button>
+						</div>	
+					</div>
+				</div>
+			</form>
+			{% for i in productos %}
+			<details class=" mt-4 border">
+				<summary class="btn animated-button  icon-cube col-md"> {{ i.nombre }}</summary> 
+				<div class="botones col-md">
+					<a class="btn animated-button  icon-edit" data-toggle="modal" data-target="#modal_editar_producto{{ i.id }}" title="Editar" aria-label="Editar" > Editar</a>
+					<a href="{% url 'sitio:eliminar_producto' i.id %}" class="btn animated-button  icon-trash-o m-2" title="Eliminar" aria-label="Eliminar"> Eliminar</a>
+				</div>
+				<div class="modal fade text-dark col-md" id="modal_editar_producto{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="modal_editar_producto" aria-hidden="true" >
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content" style="background-color: rgb(33 ,33 , 33); color: #fff;">
+							<div class="modal-header">
+								<p class="text-center col-md font-weight-bold"> 
+									<em class="font-weight-bold text-white"> Editar Producto</em><br>
+								</p>
+								<button type="button" class="close display-3 " data-dismiss="modal" aria-label="Cerrar">
+									<span aria-hidden="true" class="text-danger"><font size="6">&times;</font></span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form autocomplete="off" method="POST" action="{% url 'sitio:editar_producto' i.id %}" enctype="multipart/form-data">
+									{% csrf_token %}
+									<!--<div class="form-check col-md">
+										<input type="checkbox" class="form-check-input" id="visualizacion">
+										<label class="form-check-label" for="visualizacion" id="checkbox-label">Mostrar en Sitio Web</label>
+									</div><hr class="bg-white">-->
+
+
+									<details>
+										<summary class="btn animated-button col-md"> Colores</summary>
+										<div class="mt-2">
+											<label class="icon-paint-brush" for="fondo"> Fondo *</label>
+											<input type="color" name="fondo" id="fondo" class="form-control" value="{{ i.fondo }}">
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-paint-brush" for="etiquetas"> Etiquetas y Notas *</label>
+											<input type="color" name="etiquetas" id="etiquetas" class="form-control" value="{{ i.etiquetas }}">
+										</div>								
+
+									</details>
+									<hr class="bg-white">									
+
+
+									<div class="mt-2">
+										<label class="icon-tag" for="categoria_producto"> Categoria del producto *</label>
+										<select name="categoria" id="categoria" class="form-control text-center " aria-placeholder="Seleccione Categoría del Producto" required >
+											<option value="">Seleccione </option>
+											{% for categoria in categorias %}
+											<option value="{{ categoria.id }}"> {{ categoria.nombre }} </option>
+											{% endfor %}
+										</select>
+									</div>
+									<div class="mt-2">
+										<label class="icon-cube" for="nombre_producto"> Nombre *</label>
+										<input type="text" name="nombre" id="nombre" class="form-control text-center"  value="{{ i.nombre }}">
+									</div>
+									<div class="mt-2">
+										<label class="icon-short_text" for="descripcion"> Descripciòn *</label>
+										<textarea class="form-control" name="descripcion" id="descripcion"  rows="20">{{ i.descripcion }}</textarea>
+									</div><hr class="bg-white">	
+
+
+
+									<details>
+										<summary class="btn col-md animated-button"> Imagenes</summary>
+										<div class="mt-2">
+											<label class="icon-image" for="imagen_producto1"> Imagen 1 *</label>
+											<input type="file" name="imagen1" id="imagen1" class="form-control" accept="image/*" required>
+										</div>
+										<div class="mt-2">
+											<label class="icon-image" for="imagen_producto2"> Imagen 2 *</label>
+											<input type="file" name="imagen2" id="imagen2" class="form-control" accept="image/*" required>
+										</div>
+										<div class="mt-2">
+											<label class="icon-image" for="imagen_producto3"> Imagen 3</label>
+											<input type="file" name="imagen3" id="imagen3" class="form-control" accept="image/*" >
+										</div>
+										<div class="mt-2">
+											<label class="icon-image" for="imagen_producto4"> Imagen 4</label>
+											<input type="file" name="imagen4" id="imagen4" class="form-control" accept="image/*" >
+										</div>
+
+
+									</details>
+									<hr class="bg-white">
+
+
+
+
+
+									<details>
+										<summary class="btn animated-button col-md"> Agregar colum 1</summary>
+										<div class="mt-2">
+											<label class="icon-short_text" for="nombre_colum1"> Nombre Refrencia 1 </label>
+											<input type="text" name="nombre_colum1" id="nombre_colum1" class="form-control text-center" placeholder="Nombre colum" >
+										</div>	
+
+
+										<div class="mt-2">
+											<label class="icon-attach_money" for="precio_colum1"> Precio </label>
+											<input type="number" name="precio_colum1" id="precio_colum1" class="form-control text-center" placeholder="Precio " >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-cubes" for="stock_colum1"> Stock colum 1 </label>
+											<input type="number" name="stock_colum1" id="stock_colum1" class="form-control text-center" placeholder="Stock" >
+										</div>
+									</details>
+									<hr class="bg-white">
+
+									<details>
+										<summary class="btn animated-button col-md"> Agregar colum 2</summary>
+
+										<div class="mt-2">
+											<label class="icon-short_text" for="nombre_colum2"> Nombre Refrencia 2 </label>
+											<input type="text" name="nombre_colum2" id="nombre_colum2" class="form-control text-center" placeholder="Nombre colum" >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-attach_money" for="precio_colum2"> Precio </label>
+											<input type="number" name="precio_colum2" id="precio_colum2" class="form-control text-center" placeholder="Precio " >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-cubes" for="stock_colum2"> Stock colum 2 </label>
+											<input type="number" name="stock_colum2" id="stock_colum2" class="form-control text-center" placeholder="Stock" >
+										</div>
+									</details>
+									<hr class="bg-white">
+
+									<details>
+										<summary class="btn animated-button col-md"> Agregar colum 3</summary>
+										<div class="mt-2">
+											<label class="icon-short_text" for="nombre_colum3"> Nombre Refrencia 3 </label>
+											<input type="text" name="nombre_colum3" id="nombre_colum3" class="form-control text-center" placeholder="Nombre colum" >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-attach_money" for="precio_colum3"> Precio </label>
+											<input type="number" name="precio_colum3" id="precio_colum3" class="form-control text-center" placeholder="Precio " >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-cubes" for="stock_colum3"> Stock colum 3 </label>
+											<input type="number" name="stock_colum3" id="stock_colum3" class="form-control text-center" placeholder="Stock" >
+										</div>
+									</details>
+									<hr class="bg-white">
+
+									<details>
+										<summary class="btn animated-button col-md"> Agregar colum 4</summary>
+										<div class="mt-2">
+											<label class="icon-short_text" for="nombre_colum4"> Nombre Refrencia 4 </label>
+											<input type="text" name="nombre_colum4" id="nombre_colum4" class="form-control text-center" placeholder="Nombre colum" >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-attach_money" for="precio_colum4"> Precio </label>
+											<input type="number" name="precio_colum4" id="precio_colum4" class="form-control text-center" placeholder="Precio " >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-cubes" for="stock_colum4"> Stock colum 4 </label>
+											<input type="number" name="stock_colum4" id="stock_colum4" class="form-control text-center" placeholder="Stock" >
+										</div>
+									</details>
+									<hr class="bg-white">
+
+
+									<details>
+										<summary class="btn animated-button col-md"> Agregar colum 5</summary>
+
+										<div class="mt-2">
+											<label class="icon-short_text" for="nombre_colum5"> Nombre colum 5 </label>
+											<input type="text" name="nombre_colum5" id="nombre_colum5" class="form-control text-center" placeholder="Nombre colum" >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-attach_money" for="precio_colum5"> Precio </label>
+											<input type="number" name="precio_colum5" id="precio_colum5" class="form-control text-center" placeholder="Precio " >
+										</div>
+
+										<div class="mt-2">
+											<label class="icon-cubes" for="stock_colum5"> Stock colum 5 </label>
+											<input type="number" name="stock_colum5" id="stock_colum5" class="form-control text-center" placeholder="Stock" >
+										</div>
+									</details>
+									<hr class="bg-white">
+
+
+									<hr class="bg-white">
+									<button class="col-md icon-check btn animated-button " type="submit"> Aceptar</button>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</details>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

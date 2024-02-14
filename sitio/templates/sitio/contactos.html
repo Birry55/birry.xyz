@@ -1,0 +1,49 @@
+{% extends 'sitio/base.html' %}
+{% block titulo %}
+<title>Contactos</title>
+{% endblock %}
+{% block contenido_principal %}
+<div class="col-md mt-4">
+  <div class="site-section">
+		{% if mensaje %}
+		<div class="alert alert-success alert-dismissible ">
+			<a href="#" class="close display-3" data-dismiss="alert" aria-label="Cerrar">&times;</a>
+			<em class="font-weight-bold text-center">{{ mensaje }}.</em>
+		</div>
+		{% endif %}
+    <h3 class="text-center"> Lista de Contacto</h3><hr class="bg-white">
+    <div class="col-md">
+      <a href="{% url 'sitio:contactos' %}" class="icon-refresh btn" title="actualizar datos" aria-label="actualizar datos" ></a>
+    </div>
+    <div class="tabla table-responsive tablag  mt-3" width="auto" height="auto">
+      <table class="table table-striped table-sm table-bordered text-center" id="tb_contactos">
+        <thead class="bg-dark">
+          <tr>
+            <th >Nombre</th>
+            <th> Telefono </th>
+            <th> Producto</th>
+            <th width="10%"> Contactar</th>
+            <th width="10%"> Marcar como enviado</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          {% for i in contactos %}
+          <tr>
+            <td>{{ i.nombre_usuario }}</td>
+            <td>{{ i.telefono }}</td>
+            <td>{{ i.producto }}</td>
+            <td class="">
+              <a href="https://wa.me/57{{ i.telefono }}" target="_blank" class="btn icon-whatsapp" aria-label="WhatsApp" title="WhatsApp"> </a>
+               <a href="tel:{ i.telefono }}" target="_blank" class="btn icon-phone" aria-label="Llamar" title="Llamar"> </a>
+            </td>
+            <td class="">
+              <a href="{% url 'sitio:marcar_enviado' i.id %}" class="btn icon-check" aria-label="Marcar como enviado" title="Marcar como enviado"> </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table><br>
+    </div>
+  </div>
+</div>
+{% endblock %}

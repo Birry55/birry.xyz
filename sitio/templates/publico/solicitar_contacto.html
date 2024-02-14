@@ -1,0 +1,78 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="author" content="Juan Josè Berrio Galeano">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="imagen/icon" href="{{ cover.logo.url }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+	<link rel="stylesheet" href="{% static 'sitio/fonts/icomoon/style.css' %}">
+	<link rel="stylesheet" href="{% static 'sitio/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Bootstrap carrusel CSS -->
+	<link rel="stylesheet" href="{% static 'sitio/css/style.css' %}">
+	<link href="{% static 'sitio/css/carousel.css' %}" rel="stylesheet">
+	<title>El Imperio </title>
+</head>
+<style>
+	.form-signin {
+		width: 100%;
+		max-width: 600px;
+		padding: 15px;
+		margin: 0 auto;
+	}
+</style>
+<body >
+	<div class="site-wrap mt-4 form-signin">
+		<h2 class="text-center"> Solicitud de Contacto</h2>
+		{% if mensaje %}
+		<div class="alert alert-success alert-dismissible ">
+			<a href="#" class="close display-3" data-dismiss="alert" aria-label="Cerrar">&times;</a>
+			<em class="font-weight-bold text-center">{{ mensaje }}.</em>
+		</div>
+		{% endif %}
+		<div class="col-md ">
+			<p class="text-justify  col-md font-weight-bold text-center">
+				<font size="4">Saludos¡¡..Usted està solicitando Informaciòn Para :
+					<em class="font-weight-bold text-info">{{ producto.nombre }}</em>. En breve lo contactaremos. Muchas Gracias.
+				</font>
+			</p>
+			<form method="POST" action="{% url 'sitio:guardar_contacto' %}">
+				{% csrf_token %}
+				<font size="4">
+					<div class="fila1 container">
+						<div class="col-md mt-4">
+							<label class="icon-user font-weight-bold" for="nombre_usuario"> Nombre Completo</label>
+							<input type="text" name="nombre_usuario" id="nombre_usuario" class="form-control text-center" placeholder="Escriba el Nombre " required>
+						</div>
+						<div class="col-md mt-4">
+							<label class="icon-id-card font-weight-bold" for=""> Cedula de Ciudadania</label>
+							<input type="text" name="identificacion_personal" id="" class="form-control text-center" placeholder="Cedula de Ciudadania " required>
+						</div>
+						<div class="col-md mt-4">
+							<label class="icon-phone_iphone font-weight-bold" for="telefono"> Celular</label>
+							<input type="number" name="telefono" id="telefono" class="form-control text-center" placeholder="Escriba el numero de telefono " required>
+						</div>
+					</div><hr class="">
+					<div class="form-check container">
+						<input class="form-check-input" type="checkbox" id="terminos_condiciones" required="">
+						<label class="form-check-label font-weight-bold" for="terminos_condiciones"><a href="{% url 'sitio:politicas' %}" target="_blank" class="">
+						Al contactar acepto los terminos y condiciones</a></label>
+					</div><hr class="">
+					<input type="hidden" name="id_producto" value="{{ producto.id }}">
+					<div class="col-md mt-2">
+						<div class="container">
+						<button class="btn animated-button col-md icon-check"> Enviar </button>
+					</div>
+					</div>
+				</font>
+			</form>
+		</div><br><br>
+	</div>
+</div>
+<script src="{% static 'sitio/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'sitio/js/bootstrap.min.js' %}"></script>	
+</body>
+</html>

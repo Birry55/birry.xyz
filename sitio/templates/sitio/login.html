@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="author" content="Juan Josè Berrio Galeano">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="imagen/icon" href="{% static 'sitio/images/logotiba.jpeg' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+	<link rel="stylesheet" href="{% static 'sitio/fonts/icomoon/style.css' %}">
+	<link rel="stylesheet" href="{% static 'sitio/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Bootstrap carrusel CSS -->
+	<link rel="stylesheet" href="{% static 'sitio/css/style.css' %}">
+	<link href="{% static 'sitio/css/carousel.css' %}" rel="stylesheet">
+	<title>TIBA Ecosystem &reg;|Encube Lite </title>
+</head>
+<style>
+	.form-signin {
+		width: 100%;
+		max-width: 500px;
+		padding: 15px;
+		margin: 0 auto;
+
+	}
+</style>
+<body style="background-color: whitesmoke;">
+	<div class="text-center form-signin">
+		<div class="logo col-md">
+			<img href= "#" src="{% static 'sitio/images/asesoria.png' %}" class="rounded float-center imagenes" alt="4912 Logo" style="width: 250px;"></Img>
+		</div><hr class="bg-white">
+		{% if error %}
+		{{ error }}
+		{% endif %}
+		<form method="POST" action="{% url 'sitio:autenticar' %}"  autocomplete="off">
+			{% csrf_token %}
+			<div class="col-md mt-2">
+				<label class="icon-user" for="usuario"> Nombre de Usuario</label>
+				<input type="text" name="usuario" id="usuario" class="form-control" placeholder="Escriba el usuario Asignado" required>
+			</div>
+			<div class="col-md mt-2">
+				<label class="icon-chain" for="usuario"> Contraseña</label>
+				<input type="password" name="password" id="password" class="form-control" placeholder="Escriba la Contraseña asignada" required>
+			</div><hr class="bg-white">
+			<div class="boton col-md">
+				<button class="btn btn-white icon-check col-md" type="submit"> Entrar</button>
+			</div>
+		</form>
+	</div>
+	<footer class="site-footer border-top">
+		<div class ="my-5 pt-5 text-muted text-center text-small">
+			<p class="mb-1 text-center">&copy; 2022 Encube Lite | Todos los Derechos Reservados<br> <span><a href="https://wa.me/573158979052" target="_blank" class="border-bottom"> TIBA Ecosystem &reg;</a></a></span></p>
+		</div>
+	</footer>
+	<script src="{% static 'sitio/js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'sitio/js/bootstrap.min.js' %}"></script>	
+</body>
+</html>

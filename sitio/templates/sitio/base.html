@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="author" content="Juan Josè Berrio Galeano">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="imagen/icon" href="{% static 'sitio/images/tibaecosystem111.png' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+	<link rel="stylesheet" href="{% static 'sitio/fonts/icomoon/style.css' %}">
+	<link rel="stylesheet" href="{% static 'sitio/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Bootstrap carrusel CSS -->
+	<link rel="stylesheet" href="{% static 'sitio/css/stylesitio.css' %}">
+	<link href="{% static 'sitio/css/carousel.css' %}" rel="stylesheet">
+	{% block titulo %}Título de cada plantilla {% endblock %}
+</head>
+<style >
+	.cotizacion{
+		background-color: #fff;
+		color: rgb(0,0,0);
+	}
+	.my-custom-scrollbar {
+		position: relative;
+		max-height: 480px;
+		overflow: auto;
+	}
+	.table-wrapper-scroll-y {
+		display: block;
+	}
+	.my-custom-scrollbarmenu {
+		position: relative;
+		max-height: 520px;
+		overflow: auto;
+	}
+	.table-wrapper-scroll-y {
+		display: block;
+	}
+	.my-custom-scrollbarpedido {
+		position: relative;
+		max-height: 380px;
+		overflow: auto;
+	}
+	.table-wrapper-scroll-y {
+		display: block;
+	}
+	.my-custom-scrollbarmenu {
+		position: relative;
+		max-height: 520px;
+		overflow: auto;
+	}
+	.table-wrapper-scroll-y {
+		display: block;
+	}
+</style>
+<body>
+	<div class="row ">
+		<div class=" themed-grid-col">
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top table-responsive " style="background-color: #000;">
+				<a class="navbar-brand font-weight-bold icon-cube"> Encube Lite</a>
+				<button class="navbar-toggler font-weight-bold" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-control="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon " style=""></span>
+				</button>
+				<div class="collapse navbar-collapse my-custom-scrollbarmenu" id="navbarCollapse" >
+					<ul class="navbar-nav mr-auto ">
+						<li class="nav-item text-center border bg-dark ">
+							<a class="nav-link  icon icon-style text-info" href="{% url 'sitio:web_contenido' %}" aria-label="Documentacion" title="Documentacion"> </a>
+						</li>
+
+						<li class="nav-item text-center border bg-dark " style="font-size:120%;">
+							<a class="nav-link icon icon-globe text-info" href="{% url 'sitio:web_cover' %}" aria-label="Definir Cover" title=" Definir Cover del Sitio Web"> </a>
+						</li>							
+						<li class="nav-item text-center border bg-dark" border bg-dark style="font-size:120%;">
+							<a class="nav-link icon icon-tags text-primary" href="{% url 'sitio:categorias' %}" aria-label="Gestionar Categorías" title=" Gestionar Categorías"> </a>
+						</li>
+						<li class="nav-item text-center border bg-dark" style="font-size:120%;">
+							<a class="nav-link icon-th" href="{% url 'sitio:productos' %}"  aria-label="Gestionar Productos" title=" Gestionar Productos"> </a>
+						</li>
+						<hr class="bg-white">
+
+						<li class="nav-item text-center border bg-dark" style="font-size:120%;">
+							<a class="nav-link icon icon-power-off text-danger" href="{% url 'sitio:cerrar_sesion' %}" aria-label="Cerrar sesión" title="Cerrar sesión"> </a>  
+						</li>	
+					</ul>
+				</div>				
+			</nav>
+		</div>
+	</div>	
+	{% block contenido_principal %}
+	Datos de cada plantilla
+	{% endblock %}
+	<footer class="site-footer border-top container">
+		<div class =" pt-5 text-muted text-center text-small">
+			<div class="row">
+				<div class="col-md">
+					<img href= "#" src="{% static 'sitio/images/logotiba.png' %}" class="navbar-brand " alt=" Logo" style=" width: 200px; background-size: auto;"> </Img>
+				</div>
+			</div><br>
+			<div class="col-md">
+				<p class="mb-1">&copy; 2023 Encube Lite | Todos los Derechos Reservados<br> <span><a href="https://wa.me/573158979052" target="_blank" class="border-bottom"> Birry</a></span>
+				</p>
+			</div>
+		</footer>
+		<script src="{% static 'sitio/js/jquery-3.3.1.min.js' %}"></script>
+		<script src="{% static 'sitio/js/bootstrap.min.js' %}"></script>
+		<script>
+    // Función para cambiar el texto y el icono del label cuando el checkbox se selecciona/deselecciona
+			$(document).ready(function() {
+				$('#visualizacion').change(function() {
+					if ($(this).prop('checked')) {
+						$('#checkbox-label').html('<span class="icon-check "> Producto Publicado</span> ');
+					} else {
+						$('#checkbox-label').html(' Mostrar en Sitio Web ');
+					}
+				});
+			});
+		</script>
+
+
+
+		{% block cargar_javascript %}
+		{% endblock %}
+	</body>
+	</html>
