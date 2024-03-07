@@ -36,6 +36,7 @@ urlpatterns = [
     path('simuladorcredito/', views.simuladorcredito, name='simuladorcredito'),
     path('mincostos/', views.mincostos, name='mincostos'),
     path('maxbeneficio/', views.maxbeneficio, name='maxbeneficio'),
+    path('estadisticas/', views.estadisticas, name='estadisticas'),
     path('documentos', views.documentos, name='documentos'),
     path('web_contenido/', views.web_contenido, name='web_contenido'),
     path('guardar_lista/', views.guardar_lista, name='guardar_lista'),

@@ -606,6 +606,12 @@ def maxbeneficio(request):
     contexto = {}
     return render(request, 'publico/maxbeneficio.html')
 
+@require_GET
+def estadisticas(request):
+    contexto = {}
+    return render(request, 'publico/estadisticas.html')
+
+
 
 @require_GET
 def documentos(request):
