@@ -32,6 +32,10 @@
 
 
 
+
+
+
+
 <section class="album  bg-light">
 	<div class="col-md">
 
@@ -41,7 +45,7 @@
 			<div class="col-md-4">
 				<div class="card mb-4 shadow-sm">
 					{% if i.imagen %}
-					<a href="{% url 'sitio:categoria' i.id %}"><img src="{{ i.imagen.url }}" class="bd-placeholder-img card-img-top"  width="100%" height="350"  alt="{{ i.imagen.name }}"></a>
+					<a href="{% url 'sitio:categoria' i.id %}"><img src="{{ i.imagen.url }}" class="bd-placeholder-img card-img-top"  width="100%" height="250"  alt="{{ i.imagen.name }}"></a>
 					{% endif %}
 
 					<div class="card-body font-weight-bold  animated-shadow text-dark">

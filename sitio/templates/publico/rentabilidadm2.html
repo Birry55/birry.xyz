@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="author" content="Juan Josè Berrio Galeano">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="imagen/icon" href="{% static 'sitio/images/asesoria.png' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="{% static 'sitio/fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'sitio/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap carrusel CSS -->
+    <link rel="stylesheet" href="{% static 'sitio/css/style.css' %}">
+    <link href="{% static 'sitio/css/carousel.css' %}" rel="stylesheet">
+    <title>Modelo de Optimización de Carteras Basado en Sostenibilidad, Confianza y Transparencia</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Estilos personalizados */
+        body {
+            padding-top: 50px;
+            background-color: #ffff;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mt-1">
+        <div class=" mt-2 row col-md">
+            <div class="text-center col-md-8">
+                <h2 class="mt-3">Modelo de Optimización de Carteras Basado en Sostenibilidad, Confianza y Transparencia</h2>
+                <a href="http://localhost:8000/juanjoseberriogaleano/" class=" text-success btn icon-book"  title="Principal" aria-label="principal"></a>
+            </div>
+            <div class="text-center col-md">
+                <img href= "#" src="{% static 'sitio/images/unaula.png' %}" class="rounded float-center " alt="imagen logo tiba" style="height: 100px"></Img>
+            </div>
+        </div><hr class="bg-success">        
+
+
+        <!-- Formulario Dinámico para Activos -->
+        <form id="portfolioForm" class="col-md m-2">
+            <div id="assetsContainer"></div>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-secondary m-2" onclick="addAsset()">Agregar Activo</button>
+                <button type="button" class="btn btn-danger m-2" onclick="removeAsset()">Eliminar Activo</button>
+            </div> <hr class="text-warning">
+
+            <div class="row">
+
+                <div class="mb-3 col-md">
+                    <label for="lambda" class="form-label">Parámetro de Sostenibilidad (λ)</label>
+                    <input type="number" class="form-control" id="lambda" step="0.01" value="0.1" required>
+                </div>
+
+                <div class="mb-3 col-md">
+                    <label for="gamma" class="form-label">Parámetro de Confianza (γ)</label>
+                    <input type="number" class="form-control" id="gamma" step="0.01" value="0.1" required>
+                </div>
+            </div> <hr class="text-warning">
+
+            <button type="submit" class="btn btn-primary w-100">Optimizar Cartera</button>
+        </form>
+
+        <!-- Resultados -->
+        <div class="mt-4 container">
+            <h3>Resultados</h3>
+            <p>Rentabilidad Esperada Ajustada: <span id="expectedReturn">0.00%</span></p>
+            <p>Riesgo Ajustado: <span id="portfolioRisk">0.00%</span></p>
+        </div>
+
+        <!-- Explicación en Palabras -->
+        <div class="mt-4 container">
+            <h4>Explicación</h4>
+            <p id="explanationText">Los resultados se mostrarán aquí.</p>
+        </div>
+
+        <!-- Gráfico -->
+        <div class="mt-4">
+            <canvas id="portfolioChart"></canvas>
+        </div>
+    </div>
+
+    <footer class="site-footer border-top">
+        <div class ="text-muted text-center text-small">
+            <p class="mb-1 text">&copy; 2024  todos los derechos reservados.<span><br>Desarrollado Por <a href="https://wa.me/573158979052" class="border-bottom text-success" target="_blank">Birry</a></span></p>
+        </div>
+    </footer>   
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        let assetCount = 0;
+
+        function addAsset() {
+            assetCount++;
+            const assetTemplate = `
+            <div class="asset" id="asset${assetCount}">
+            <h5>Activo ${assetCount}</h5>
+            <div class="row">
+            <div class="mb-3 col-md-4">
+            <label for="asset${assetCount}Return" class="form-label">Rentabilidad (%)</label>
+            <input type="number" class="form-control" id="asset${assetCount}Return" step="0.01" placeholder="0.00" required>
+            </div>
+            <div class="mb-3 col-md-4">
+            <label for="asset${assetCount}Risk" class="form-label">Riesgo (%)</label>
+            <input type="number" class="form-control" id="asset${assetCount}Risk" step="0.01" placeholder="0.00" required>
+            </div>
+            <div class="mb-3 col-md-4">
+            <label for="weight${assetCount}" class="form-label">Peso</label>
+            <input type="number" class="form-control" id="weight${assetCount}" step="0.01" placeholder="0.00" required>
+            </div>
+            <div class="mb-3 col-md-4">
+            <label for="sustainability${assetCount}" class="form-label">Puntaje de Sostenibilidad (S)</label>
+            <input type="number" class="form-control" id="sustainability${assetCount}" step="0.01" placeholder="0.00" required>
+            </div>
+            <div class="mb-3 col-md-4">
+            <label for="transparency${assetCount}" class="form-label">Puntaje de Transparencia (T)</label>
+            <input type="number" class="form-control" id="transparency${assetCount}" step="0.01" placeholder="1.00" min="0" max="1" required>
+            </div><hr>
+            </div>
+            </div>`;
+            document.getElementById('assetsContainer').insertAdjacentHTML('beforeend', assetTemplate);
+        }
+
+        function removeAsset() {
+            if (assetCount > 0) {
+                document.getElementById(`asset${assetCount}`).remove();
+                assetCount--;
+            }
+        }
+
+        document.getElementById('portfolioForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Parámetros globales
+            const lambda = parseFloat(document.getElementById('lambda').value);
+            const gamma = parseFloat(document.getElementById('gamma').value);
+
+            // Variables de acumulación
+            let expectedReturn = 0;
+            let adjustedRisk = 0;
+            let totalWeight = 0;
+
+            // Arrays para acumulación de datos
+            const returns = [];
+            const risks = [];
+            const weights = [];
+            const sustainabilities = [];
+            const transparencies = [];
+
+            // Recopilar los datos de cada activo
+            for (let i = 1; i <= assetCount; i++) {
+                const assetReturn = parseFloat(document.getElementById(`asset${i}Return`).value) / 100;
+                const assetRisk = parseFloat(document.getElementById(`asset${i}Risk`).value) / 100;
+                const weight = parseFloat(document.getElementById(`weight${i}`).value);
+                const sustainability = parseFloat(document.getElementById(`sustainability${i}`).value);
+                const transparency = parseFloat(document.getElementById(`transparency${i}`).value);
+
+                // Sumar ponderaciones para verificar que sumen 1
+                totalWeight += weight;
+
+                // Acumulación de rentabilidad esperada ajustada por sostenibilidad
+                expectedReturn += weight * assetReturn + lambda * weight * sustainability;
+
+                // Acumulación de riesgos y transparencias
+                returns.push(assetReturn);
+                risks.push(assetRisk);
+                weights.push(weight);
+                sustainabilities.push(sustainability);
+                transparencies.push(transparency);
+            }
+
+            // Verificar que los pesos sumen 1
+            if (Math.abs(totalWeight - 1) > 0.01) {
+                alert("La suma de los pesos debe ser igual a 1.");
+                return;
+            }
+
+            // Cálculo del riesgo ajustado por transparencia
+            for (let i = 0; i < assetCount; i++) {
+                for (let j = 0; j < assetCount; j++) {
+                    // Simulación de la covarianza como producto de los riesgos individuales (esto es solo para simplificar)
+                    const covariance = risks[i] * risks[j] * (i === j ? 1 : 0.5); // Covarianza estimada
+                    adjustedRisk += weights[i] * weights[j] * covariance;
+                }
+                adjustedRisk += gamma * weights[i] * (1 - transparencies[i]);
+            }
+
+            // Actualizar resultados en la página
+            document.getElementById('expectedReturn').textContent = (expectedReturn * 100).toFixed(2) + '%';
+            document.getElementById('portfolioRisk').textContent = (adjustedRisk * 100).toFixed(2) + '%';
+
+            // Explicación en palabras
+            const explanationText = document.getElementById('explanationText');
+            if (expectedReturn >= 0 && adjustedRisk >= 0) {
+                explanationText.textContent = `Con una rentabilidad esperada del ${(expectedReturn * 100).toFixed(2)}% y un riesgo ajustado del ${(adjustedRisk * 100).toFixed(2)}%, esta cartera optimiza la sostenibilidad y la transparencia, proporcionando un equilibrio saludable entre rendimientos y riesgos.`;
+            } else {
+                explanationText.textContent = "Los parámetros elegidos podrían no ser óptimos. Intente ajustar los valores de sostenibilidad y confianza.";
+            }
+
+            // Graficar resultados
+            const ctx = document.getElementById('portfolioChart').getContext('2d');
+
+            // Destruir el gráfico anterior si existe
+            if (window.portfolioChart) {
+                window.portfolioChart.destroy();
+            }
+
+            window.portfolioChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Rentabilidad Esperada', 'Riesgo Ajustado'],
+                    datasets: [{
+                        label: 'Porcentaje (%)',
+                        data: [(expectedReturn * 100).toFixed(2), (adjustedRisk * 100).toFixed(2)],
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+
+        // Agregar un activo por defecto al cargar la página
+addAsset();
+</script>
+</body>
+
+</html>

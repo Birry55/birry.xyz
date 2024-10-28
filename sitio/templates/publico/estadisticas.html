@@ -88,18 +88,38 @@
                     <!-- Agregar botón Resumen -->
                     <button id="btnResumen" class="btn icon-calculator -alt mt-3"> Calcular</button>
                     <!-- Área para mostrar el resumen -->
-                    <div id="resumenArea" class="mt-3 "></div><hr>
+                    <div id="resumenArea" class="mt-3 "></div>
 
-                </details>
+                </details><hr>
 
                 <details class="mt-2">
                     <summary class="btn icon-line-chart "> Analisis de regresion </summary><hr>
-                    <!-- Agregar botón Resumen -->
-                    <button id="btnResumen" class="btn icon-calculator -alt mt-3"> Calcular</button>
-                    <!-- Área para mostrar el resumen -->
-                    <div id="resumenArea" class="mt-3 "></div>
 
-                </details>
+                    <form id="formRegresion">
+                        <div class="col-md">
+                            <label class="icon-asterisk" for="variable_dependiente">Variable Dependiente (Y) </label>
+                            <select class="form-control" id="variable_dependiente" name="variable_dependiente">
+                                <!-- Opciones de variables dependientes -->
+                            </select>
+                        </div>
+                        <div class="col-md">
+                            <label class="icon-asterisk" for="variables_independientes">Variables independientes (X)</label>
+                            <select multiple class="form-control" id="variables_independientes" name="variables_independientes">
+                                <!-- Opciones de variables independientes -->
+                            </select>
+                        </div>
+
+                        <!-- Agregar botón para calcular la regresión -->
+                        <button type="button" id="btnRegresion" class="btn icon-calculator mt-3"> Calcular</button>
+
+                    </form>
+
+
+
+                    <!-- Área para mostrar el resumen -->
+                    <div id="RegresionResumen" class="mt-3 "></div>
+
+                </details><hr>
 
 
 
@@ -126,6 +146,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/regression-js/1.5.3/regression.min.js"></script>
     <script src="{% static 'sitio/js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'sitio/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'sitio/js/mincostos.js' %}"></script>

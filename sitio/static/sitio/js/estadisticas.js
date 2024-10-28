@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         crearTablaConNombres(numVariables, maxObservaciones);
     });
 
+    // funcion crear nombres formulario
     function crearFormularioNombres(numVariables) {
         form2.innerHTML = '';
 
@@ -72,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
         button.textContent = 'Crear Tabla';
         form2.appendChild(button);
     }
-
+    
+    // funcion crear tablas con nombres
     function crearTablaConNombres(numVariables, maxObservaciones) {
         table.innerHTML = '';
 
@@ -119,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-                 // Después de la función crearTablaConNombres
+    // Después de la función crearTablaConNombres Calcular resumen
     function calcularResumen() {
         var resumenArea = document.getElementById('resumenArea');
         var tbody = table.querySelector('tbody');
@@ -173,14 +175,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-// Función para obtener el nombre de la variable desde el formulario
+   // Función para obtener el nombre de la variable desde el formulario
     function obtenerNombreVariable(indice) {
         var inputNombre = document.getElementById('vari' + indice);
         return inputNombre.value || 'Variable ' + indice;
     }
 
 
-           // Función para obtener datos de una columna específica
+    // Función para obtener datos de una columna específica
     function obtenerDatosDeColumna(columnIndex) {
         var datos = [];
         var tbody = table.querySelector('tbody');
@@ -195,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-        // Funciones auxiliares para cálculos estadísticos (puedes agregar más según sea necesario)
+    // Funciones auxiliares para cálculos estadísticos (puedes agregar más según sea necesario)
     function calcularMedia(datos) {
         var suma = datos.reduce((total, dato) => total + dato, 0);
         return suma / datos.length;
@@ -213,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return Math.sqrt(sumaCuadrados / datos.length);
     }
 
-        // Luego, dentro del evento click del botón Resumen
+    // Luego, dentro del evento click del botón Resumen
     document.getElementById('btnResumen').addEventListener('click', function () {
             // Obtener los datos de la tabla
         var datos = obtenerDatosDeTabla();
@@ -228,14 +230,14 @@ document.addEventListener('DOMContentLoaded', function () {
         calcularResumen(datos);
     });
 
-        // Función para validar datos en la tabla antes de calcular el resumen
+    // Función para validar datos en la tabla antes de calcular el resumen
     function validarDatosParaResumen(datos) {
             // Implementar lógica de validación según tus requisitos
             // Por ejemplo, verificar si todos los datos son números y están presentes
         return datos.every(dato => !isNaN(dato) && dato !== '');
     }
 
-        // Función para obtener datos de la tabla
+    // Función para obtener datos de la tabla
     function obtenerDatosDeTabla() {
         var datos = [];
         var tbody = table.querySelector('tbody');

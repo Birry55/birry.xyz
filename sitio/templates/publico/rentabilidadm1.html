@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="author" content="Juan Josè Berrio Galeano">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="imagen/icon" href="{% static 'sitio/images/asesoria.png' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="{% static 'sitio/fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'sitio/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap carrusel CSS -->
+    <link rel="stylesheet" href="{% static 'sitio/css/style.css' %}">
+    <link href="{% static 'sitio/css/carousel.css' %}" rel="stylesheet">
+    <title>Rentabilidad Esperada de Una Cartera</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            padding-top: 50px;
+            background-color: #ffff;
+        }
+
+        .container {
+            max-width: 700px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <div class=" mt-2 row col-md">
+            <div class="text-center col-md-8">
+                <h2 class="mt-3">Rentabilidad Esperada de Una Cartera: Calculadora de Markowitz</h2>
+                <a href="http://localhost:8000/juanjoseberriogaleano/" class=" text-success btn icon-book"  title="Principal" aria-label="principal"></a>
+            </div>
+            <div class="text-center col-md">
+                <img href= "#" src="{% static 'sitio/images/unaula.png' %}" class="rounded float-center " alt="imagen logo tiba" style="height: 100px"></Img>
+            </div>
+        </div><hr class="bg-success">
+        <div class="mt-1">
+            <!-- Formulario -->
+            <form id="portfolioForm" class="col-md m-2">
+                <div id="assetsContainer"></div>
+
+                <div id="correlationsContainer"></div>
+
+                <div class="mb-3">
+                    <button id="addAsset" type="button" class="btn btn-success w-100">Agregar Activo</button>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Calcular</button>
+            </form>
+
+            <!-- Resultados -->
+            <div class="mt-4 container">
+                <h3>Resultados</h3>
+                <p>Rentabilidad Esperada: <span id="expectedReturn">0.00%</span></p>
+                <p>Riesgo de la Cartera: <span id="portfolioRisk">0.00%</span></p>
+            </div>
+
+            <!-- Explicación en Palabras -->
+            <div class="mt-4 container">
+                <h3>Explicación de Resultados</h3>
+                <p id="explanationText"></p>
+            </div>
+
+            <!-- Gráfico -->
+            <div class="mt-4">
+                <canvas id="portfolioChart"></canvas>
+            </div>
+        </div>
+
+        <footer class="site-footer border-top">
+            <div class ="text-muted text-center text-small">
+                <p class="mb-1 text">&copy; 2024  todos los derechos reservados.<span><br>Desarrollado Por <a href="https://wa.me/573158979052" class="border-bottom text-success" target="_blank">Birry</a></span></p>
+            </div>
+        </footer>
+
+        <!-- Bootstrap JS and Popper.js -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+        <!-- Archivo de JavaScript -->
+        <script>
+            let assetCount = 0;
+
+            document.getElementById('addAsset').addEventListener('click', function () {
+                addAssetFields();
+            });
+
+            function addAssetFields() {
+                assetCount++;
+                const assetsContainer = document.getElementById('assetsContainer');
+                const correlationsContainer = document.getElementById('correlationsContainer');
+
+            // Crear campos para el nuevo activo
+                const assetHTML = `
+                <div class="row asset-group mb-3" data-asset-id="${assetCount}">
+                <div class="col-md-4 mb-3">
+                <label class="form-label">Rentabilidad Activo ${assetCount} (%)</label>
+                <input type="number" class="form-control" name="assetReturn" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                <label class="form-label">Riesgo Activo ${assetCount} (%)</label>
+                <input type="number" class="form-control" name="assetRisk" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                <label class="form-label">Peso Activo ${assetCount}</label>
+                <input type="number" class="form-control" name="assetWeight" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="col-md-12">
+                <button type="button" class="btn btn-danger w-100 remove-asset">Eliminar Activo</button>
+                </div>
+                </div>`;
+
+                assetsContainer.insertAdjacentHTML('beforeend', assetHTML);
+
+            // Crear campos de correlaciones para el nuevo activo respecto a los anteriores
+                if (assetCount > 1) {
+                    for (let i = 1; i < assetCount; i++) {
+                        const correlationHTML = `
+                        <div class="row correlation-group mb-3" data-correlation-id="${i}-${assetCount}">
+                        <div class="col-md-12">
+                        <label class="form-label">Correlación entre Activo ${i} y Activo ${assetCount}</label>
+                        <input type="number" class="form-control" name="correlation" step="0.01" placeholder="0.00" min="-1" max="1" required>
+                        </div>
+                        </div>`;
+                        correlationsContainer.insertAdjacentHTML('beforeend', correlationHTML);
+                    }
+                }
+
+            // Añadir funcionalidad al botón de eliminar
+                document.querySelectorAll('.remove-asset').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const assetGroup = this.closest('.asset-group');
+                        const assetId = assetGroup.getAttribute('data-asset-id');
+
+                    // Eliminar el activo
+                        assetGroup.remove();
+                        assetCount--;
+
+                    // Eliminar correlaciones asociadas
+                        document.querySelectorAll(`[data-correlation-id*="-${assetId}"], [data-correlation-id^="${assetId}-"]`).forEach(el => el.remove());
+                    });
+                });
+            }
+
+            document.getElementById('portfolioForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+            // Capturar los valores de todos los activos
+                const returns = Array.from(document.querySelectorAll('input[name="assetReturn"]')).map(input => parseFloat(input.value) / 100);
+                const risks = Array.from(document.querySelectorAll('input[name="assetRisk"]')).map(input => parseFloat(input.value) / 100);
+                const weights = Array.from(document.querySelectorAll('input[name="assetWeight"]')).map(input => parseFloat(input.value));
+
+            // Capturar todas las correlaciones
+                const correlations = Array.from(document.querySelectorAll('input[name="correlation"]')).map(input => parseFloat(input.value));
+
+            // Validaciones de pesos
+                const totalWeight = weights.reduce((acc, val) => acc + val, 0);
+                if (totalWeight !== 1) {
+                    alert("La suma de los pesos debe ser igual a 1.");
+                    return;
+                }
+
+            // Cálculo de la rentabilidad esperada y el riesgo de la cartera
+                let expectedReturn = 0;
+                let portfolioRisk = 0;
+
+            // Calcular la rentabilidad esperada
+                for (let i = 0; i < returns.length; i++) {
+                    expectedReturn += weights[i] * returns[i];
+                }
+
+            // Calcular el riesgo de la cartera
+                let correlationIndex = 0;
+                for (let i = 0; i < risks.length; i++) {
+                    for (let j = 0; j < risks.length; j++) {
+                        if (i === j) {
+                        // Riesgo individual
+                            portfolioRisk += Math.pow(weights[i] * risks[i], 2);
+                        } else if (i < j) {
+                        // Riesgo conjunto (correlaciones)
+                            portfolioRisk += 2 * weights[i] * weights[j] * risks[i] * risks[j] * correlations[correlationIndex];
+                            correlationIndex++;
+                        }
+                    }
+                }
+
+                portfolioRisk = Math.sqrt(portfolioRisk);
+
+            // Actualizar los resultados en la página
+                document.getElementById('expectedReturn').textContent = (expectedReturn * 100).toFixed(2) + '%';
+                document.getElementById('portfolioRisk').textContent = (portfolioRisk * 100).toFixed(2) + '%';
+
+            // Actualizar la explicación en palabras
+                const explanationText = document.getElementById('explanationText');
+                if (expectedReturn >= 0 && portfolioRisk >= 0) {
+                    explanationText.textContent = `Con una rentabilidad esperada del ${(expectedReturn * 100).toFixed(2)}% y un riesgo de ${(portfolioRisk * 100).toFixed(2)}%, esta cartera tiene una proyección positiva. Esto significa que, en promedio, puedes esperar un rendimiento del ${(expectedReturn * 100).toFixed(2)}% sobre tu inversión. Sin embargo, este rendimiento viene con un riesgo asociado de ${(portfolioRisk * 100).toFixed(2)}%, lo que indica la variabilidad de los retornos que podrías experimentar.`;
+                } else {
+                    explanationText.textContent = "Hubo un error en los cálculos o los datos ingresados. Por favor, verifica los valores ingresados.";
+                }
+
+            // Graficar el riesgo y rentabilidad
+                const ctx = document.getElementById('portfolioChart').getContext('2d');
+            if (window.chart) window.chart.destroy(); // Destruir gráfico previo si existe
+
+            window.chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Rentabilidad Esperada', 'Riesgo'],
+                    datasets: [{
+                        label: 'Resultados',
+                        data: [(expectedReturn * 100).toFixed(2), (portfolioRisk * 100).toFixed(2)],
+                        backgroundColor: ['#007bff', '#dc3545'],
+                        borderColor: ['#007bff', '#dc3545'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

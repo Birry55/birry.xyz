@@ -611,7 +611,15 @@ def estadisticas(request):
     contexto = {}
     return render(request, 'publico/estadisticas.html')
 
+@require_GET
+def rentabilidadm1(request):
+    contexto = {}
+    return render(request, 'publico/rentabilidadm1.html')
 
+@require_GET
+def rentabilidadm2(request):
+    contexto = {}
+    return render(request, 'publico/rentabilidadm2.html')
 
 @require_GET
 def documentos(request):
