@@ -2,4 +2,4 @@ Django==5.0.7
 pillow==10.4.0
 pandas==2.2.2
 numpy ==1.26.4
-webpus==1.0.2
+webpush==1.0.2
