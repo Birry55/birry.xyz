@@ -1,0 +1,151 @@
+{% extends 'publico/base.html' %}
+{% load static %}
+{% block contenido_principal %}
+
+
+
+    <div class="container mt-5">
+        <h2 class="text-center">Gestion de Costos de Producción</h2>
+
+        <!-- Sección de navegación por pestañas -->
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <ul id="myTab" class="nav nav-tabs mt-2">
+                    <li class="nav-item">
+                        <a href="#paso0" class="nav-link active" data-bs-toggle="tab">Paso 0</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#paso1" class="nav-link " data-bs-toggle="tab">Paso 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#paso2" class="nav-link" data-bs-toggle="tab">Paso 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#resumen" class="nav-link" data-bs-toggle="tab">Resumen</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="tab-content mt-4">
+                <!-- Paso 1 -->
+
+                <div class="tab-pane fade show active" id="paso0">
+
+                    <div class="">
+                        <h4 class="text-center">Calculadora de Costos Laborales</h4>
+                        <form id="costForm">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="employeeName">Nombre del Empleado:</label>
+                                    <input type="text" class="form-control" id="employeeName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="salary">Salario :</label>
+                                    <input type="number" class="form-control" id="salary" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="additionalCost">Costo Adicional :</label>
+                                    <input type="number" class="form-control" id="additionalCost" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="daysWorked">Días Laborados Mensuales:</label>
+                                    <input type="number" class="form-control" id="daysWorked" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="hoursPerDay">Horas Laboradas por Día :</label>
+                                    <input type="number" class="form-control" id="hoursPerDay" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="classification">Clasificación:</label>
+                                    <select class="form-control" id="classification" required>
+                                        <option value="L_o">L<sub>o</sub> (Suficientes para operar)</option>
+                                        <option value="L_p">L<sub>p</sub> (Necesarios para producir)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary mb-3" onclick="addEmployee()">Agregar Empleado</button>
+                        </form><hr>
+
+                        <table class="table table-bordered result-table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Clasificación</th>
+                                    <th>Salario </th>
+                                    <th>Costo Adicional </th>
+                                    <th>Días Laborados Mensules</th>
+                                    <th>Horas Laboradas por Día</th>
+                                    <th>Costo Mensual Total </th>
+                                    <th>Costo Laboral por Minuto </th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeeTable">
+                                <!-- Los empleados se agregarán aquí -->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2">Total</th>
+                                    <td id="totalSalary">0</td>
+                                    <td id="totalAdditionalCost"> 0 </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td id="totalMonthlyCost">0</td>
+                                    <td id="totalMinuteCost">0</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+
+                </div>
+
+
+
+                <div class="tab-pane fade" id="paso1">
+                    <h3>Paso 1: Información del Producto</h3>
+                    <form id="productForm1">
+                        <div class="mb-3">
+                            <label for="productoName" class="form-label">Nombre del Producto</label>
+                            <input type="text" id="productoName" class="form-control" placeholder="Ej: Hamburguesa, Armario, Carrocería" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productoCategoria" class="form-label">Categoría del Producto</label>
+                            <input type="text" id="productoCategoria" class="form-control" placeholder="Escriba la Categoría del Producto" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productoImagen" class="form-label">Imagen de referencia</label>
+                            <input type="file" id="productoImagen" class="form-control" accept="image/*">
+                        </div>
+                        <button type="button" id="showImageButton" class="btn btn-primary">Mostrar Contenido</button>
+                    </form>
+                    <div id="previewContainer" class="text-center mt-3" style="display: none;">
+                        <h5 id="productNameDisplay"></h5>
+                        <h5 id="productoCategoriaDisplay"></h5>
+                        <img id="imagePreview" src="" alt="Previsualización de imagen" style="max-width: 300px;">
+                    </div>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="tab-pane fade" id="paso2">
+                    <h3>Paso 2: Construcción del Producto</h3>
+                    <div id="sectionsContainer"></div>
+                    <button id="addSectionBtn" class="btn btn-success mt-4">Añadir Sección de Producción</button>
+                    <div class="text-end mt-4">
+                        <h4>Total Costo de Producción: <span class="text-danger">$<span id="globalTotalCost">0.00</span></span></h4>
+                    </div>
+                </div>
+
+                <!-- Resumen Final -->
+                <div class="tab-pane fade" id="resumen">
+                    <h3>Resumen de la Ficha Técnica de Producción</h3>
+                    <div id="summaryContainer" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

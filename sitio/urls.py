@@ -33,8 +33,12 @@ urlpatterns = [
     path('reportar_factura/<int:pk>/', views.reportar_factura, name='reportar_factura'),
     path('politicas/', views.politicas, name='politicas'),
     path('comprar/', views.comprar, name='comprar'),
+    path('calculadoras/', views.calculadoras, name='calculadoras'),
     path('simuladorcredito/', views.simuladorcredito, name='simuladorcredito'),
     path('mincostos/', views.mincostos, name='mincostos'),
+    path('costosproduccion/', views.costosproduccion, name='costosproduccion'),
+
+
     path('maxbeneficio/', views.maxbeneficio, name='maxbeneficio'),
     path('estadisticas/', views.estadisticas, name='estadisticas'),
     path('rentabilidadm1/', views.rentabilidadm1, name='rentabilidadm1'),

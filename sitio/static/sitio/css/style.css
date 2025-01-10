@@ -1,15 +1,62 @@
 /* Base */
 body {
-  background: #ffff;
+  background: linear-gradient(270deg, #050505, #121512, #1b251c, #123115);
+  background-size: 800% 800%;
   line-height: 1.7;
   color: #000;
   font-weight: 300;
   font-size: 16px;
   height: 100%;
   font-family: "Gill Sans", sans-serif;
-
-
+  animation: gradientAnimation 10s ease infinite;
 }
+
+/* Animación para el fondo */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Texto Birry de fondo */
+body::before {
+  content: "Birry";
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10rem; /* Ajusta el tamaño del texto */
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.05); /* Texto translúcido */
+  white-space: nowrap;
+  z-index: 1; /* Permite que el contenido principal esté encima */
+  pointer-events: none; /* Evita interacciones no deseadas */
+  animation: moveText 6s linear infinite;
+}
+
+/* Animación para mover el texto */
+@keyframes moveText {
+  0% {
+    transform: translate(-50%, -50%) translateX(-20px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateX(20px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateX(-20px);
+  }
+}
+
+
+
+
+
 
 ::-moz-selection {
   background: #000;
@@ -20,6 +67,8 @@ body {
   background: #000;
   color: #000; 
 }
+
+
 main{
   padding: 2px;
 }
@@ -319,6 +368,8 @@ a:hover {
   margin-bottom: 0px;
   z-index: 1999;
 }
+
+
 
 .site-navbar .site-navbar-top {
   border-bottom: 1px solid #edf0f5;

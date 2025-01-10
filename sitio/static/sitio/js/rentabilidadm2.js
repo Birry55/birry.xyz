@@ -1,66 +1,5 @@
-{% extends 'publico/base.html' %}
-{% load static %}
-{% block contenido_principal %}
-
-    <div class="mt-1">
-        <div class=" mt-2  col-md">
-            <div class="text-center ">
-                <h2 class="mt-3">Modelo de Optimización de Carteras Basado en Sostenibilidad, Confianza y Transparencia</h2>
-            </div>
-        </div><hr class="bg-success">        
 
 
-        <!-- Formulario Dinámico para Activos -->
-        <form id="portfolioForm" class="col-md m-2">
-            <div id="assetsContainer"></div>
-
-            <div class="text-center">
-                <button type="button" class="btn bg-info m-2" onclick="addAsset()">Agregar Activo</button>
-                <button type="button" class="btn bg-danger m-2" onclick="removeAsset()">Eliminar Activo</button>
-            </div> <hr class="text-warning">
-
-            <div class="row">
-
-                <div class="mb-3 col-md">
-                    <label for="lambda" class="form-label">Parámetro de Sostenibilidad (λ)</label>
-                    <input type="number" class="form-control" id="lambda" step="0.01" value="0.1" required>
-                </div>
-
-                <div class="mb-3 col-md">
-                    <label for="gamma" class="form-label">Parámetro de Confianza (γ)</label>
-                    <input type="number" class="form-control" id="gamma" step="0.01" value="0.1" required>
-                </div>
-            </div> <hr class="text-warning">
-
-            <button type="submit" class="btn bg-success w-100">Optimizar Cartera</button>
-        </form>
-
-        <!-- Resultados -->
-        <div class="mt-4 container">
-            <h3>Resultados</h3>
-            <p>Rentabilidad Esperada Ajustada: <span id="expectedReturn">0.00%</span></p>
-            <p>Riesgo Ajustado: <span id="portfolioRisk">0.00%</span></p>
-        </div>
-
-        <!-- Explicación en Palabras -->
-        <div class="mt-4 container">
-            <h4>Explicación</h4>
-            <p id="explanationText">Los resultados se mostrarán aquí.</p>
-        </div>
-
-        <!-- Gráfico -->
-        <div class="mt-4">
-            <canvas id="portfolioChart"></canvas>
-        </div>
-    </div>
-
-  
-
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-
-    <script>
         let assetCount = 0;
 
         function addAsset() {
@@ -202,6 +141,3 @@
 
         // Agregar un activo por defecto al cargar la página
 addAsset();
-</script>
-
-{% endblock %}

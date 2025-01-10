@@ -1,0 +1,139 @@
+{% extends 'publico/base.html' %}
+{% load static %}
+{% block contenido_principal %}
+
+<div class="col-md">
+	<h2 class="text-center font-weight-bold text-light"> Calculadoras</h2><hr class="bg-light">
+
+	<div class="">
+		<div class="row mt-2 col-md">
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm ">
+					<div class="card-body animated-shadow" style=" min-height: 170px;">
+						<div class="">										
+							<p class=" font-weight-bold text-center lead">Simulador de Credito</p>
+
+							<div class="">
+								<a href="{% url 'sitio:simuladorcredito' %}" type="button" class="btn col-md" aria-label="ver mas" title="Ver Más">
+									<span class="icon-eye"></span> Ver Más
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm ">
+					<div class="card-body animated-shadow" style=" min-height: 170px;">
+						<div class="">										
+							<p class=" font-weight-bold text-center lead">Rentabilidad Esperada de Una Cartera</p>
+
+							<div class="">
+								<a href="{% url 'sitio:rentabilidadm1' %}" type="button" class="btn col-md" aria-label="ver mas" title="Ver Más">
+									<span class="icon-eye"></span> Ver Más
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm ">
+					<div class="card-body animated-shadow" style=" min-height: 170px;">
+						<div class="">										
+							<p class=" font-weight-bold text-center lead"> Rentabilidad Esperada de Una Cartera  Basado en Sostenibilidad, Confianza y Transparencia</p>
+
+							<div class="">
+								<a href="{% url 'sitio:rentabilidadm2' %}" type="button" class="btn col-md" aria-label="ver mas" title="Ver Más">
+									<span class="icon-eye"></span> Ver Más
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm ">
+					<div class="card-body animated-shadow" style=" min-height: 170px;">
+						<div class="">										
+							<p class=" font-weight-bold text-center lead"> Maximización del beneficio económico largo Plazo</p>
+
+							<div class="">
+								<a href="{% url 'sitio:maxbeneficio' %}" type="button" class="btn col-md" aria-label="ver mas" title="Ver Más">
+									<span class="icon-eye"></span> Ver Más
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm ">
+					<div class="card-body animated-shadow" style=" min-height: 170px;">
+						<div class="">										
+							<p class=" font-weight-bold text-center lead"> Estadisticas</p>
+
+							<div class="">
+								<a href="{% url 'sitio:estadisticas' %}" type="button" class="btn col-md" aria-label="ver mas" title="Ver Más">
+									<span class="icon-eye"></span> Ver Más
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm ">
+					<div class="card-body animated-shadow" style=" min-height: 170px;">
+						<div class="">										
+							<p class=" font-weight-bold text-center lead"> Minimización de Costos a largo Plazo</p>
+
+							<div class="">
+								<a href="{% url 'sitio:mincostos' %}" type="button" class="btn col-md" aria-label="ver mas" title="Ver Más">
+									<span class="icon-eye"></span> Ver Más
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm ">
+					<div class="card-body animated-shadow" style=" min-height: 170px;">
+						<div class="">										
+							<p class=" font-weight-bold text-center lead"> Gestion de Costos de Producción</p>
+
+							<div class="">
+								<a href="{% url 'sitio:costosproduccion' %}" type="button" class="btn col-md" aria-label="ver mas" title="Ver Más">
+									<span class="icon-eye"></span> Ver Más
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+		</div>
+	</div>
+
+
+
+</div>
+
+
+
+
+{% endblock %}
+
+

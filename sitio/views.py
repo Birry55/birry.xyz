@@ -592,9 +592,28 @@ def productos_vista(request, id_producto):
     return render(request, 'publico/productos_vista.html', contexto)
 
 @require_GET
+def calculadoras(request):
+    contexto = {}
+    contexto['productos'] = {}
+    contexto['categorias'] = Categoria.objects.all()
+    covers = Cover.objects.all()
+    try:
+        contexto['cover'] = covers[0]
+    except IndexError:
+        contexto['no_cover'] = True
+    return render(request, 'publico/calculadoras.html', contexto)  
+
+@require_GET
 def simuladorcredito(request):
     contexto = {}
-    return render(request, 'publico/simuladorcredito.html')
+    contexto['productos'] = {}
+    contexto['categorias'] = Categoria.objects.all()
+    covers = Cover.objects.all()
+    try:
+        contexto['cover'] = covers[0]
+    except IndexError:
+        contexto['no_cover'] = True
+    return render(request, 'publico/simuladorcredito.html', contexto) 
 
 @require_GET
 def mincostos(request):
@@ -614,12 +633,43 @@ def estadisticas(request):
 @require_GET
 def rentabilidadm1(request):
     contexto = {}
-    return render(request, 'publico/rentabilidadm1.html')
+    contexto['productos'] = {}
+    contexto['categorias'] = Categoria.objects.all()
+    covers = Cover.objects.all()
+    try:
+        contexto['cover'] = covers[0]
+    except IndexError:
+        contexto['no_cover'] = True
+    return render(request, 'publico/rentabilidadm1.html', contexto)
+
+
+@require_GET
+def costosproduccion(request):
+    contexto = {}
+    contexto['productos'] = {}
+    contexto['categorias'] = Categoria.objects.all()
+    covers = Cover.objects.all()
+    try:
+        contexto['cover'] = covers[0]
+    except IndexError:
+        contexto['no_cover'] = True
+    return render(request, 'publico/costosproduccion.html', contexto)
+
+
+
+
 
 @require_GET
 def rentabilidadm2(request):
     contexto = {}
-    return render(request, 'publico/rentabilidadm2.html')
+    contexto['productos'] = {}
+    contexto['categorias'] = Categoria.objects.all()
+    covers = Cover.objects.all()
+    try:
+        contexto['cover'] = covers[0]
+    except IndexError:
+        contexto['no_cover'] = True
+    return render(request, 'publico/rentabilidadm2.html', contexto) 
 
 @require_GET
 def documentos(request):

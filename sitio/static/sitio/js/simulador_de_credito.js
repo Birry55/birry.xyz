@@ -95,13 +95,13 @@ function simular() {
 
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td class="text-dark text-center">${[i]}</td>
-            <td class="text-dark ">${fechas[i]}</td>
-            <td class="text-dark icon-attach_money">${saldoCapital.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
-            <td class="text-dark icon-attach_money">${pagoInteres.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
-            <td class="text-dark icon-attach_money">${pagoCapital.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
-            <td class="text-dark icon-attach_money">${seguroAuto.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
-            <td class="text-dark icon-attach_money">${CuotaCamion.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
+            <td class="text-light text-center">${[i]}</td>
+            <td class="text-light ">${fechas[i]}</td>
+            <td class="text-light icon-attach_money">${saldoCapital.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
+            <td class="text-light icon-attach_money">${pagoInteres.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
+            <td class="text-light icon-attach_money">${pagoCapital.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
+            <td class="text-light icon-attach_money">${seguroAuto.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
+            <td class="text-light icon-attach_money">${CuotaCamion.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</td>
         `;
         llenarTabla.appendChild(row)
     }
@@ -454,11 +454,7 @@ interes_mv.addEventListener("change", () => {
 
 
 
-
-///////////////////////////// graficas 
-
-
-
-// Set new default font family and font color to mimic Bootstrap's default styling
-
+    document.getElementById('informacion_tasa').onclick = function(){
+      alert('La Tasa Efectiva Anual es la tasa de interés que se aplica en un crédito a plazo de un año; dependerá del monto que se quiera financiar, la calificación crediticia y de si el vehículo es nuevo o usado. Recomendamos una tasa efectiva anual de 14.422 la cual corresponde a una tasa de 1.12902 Mes Vencido para un uso estandar de credito.................................... Dirijase hacia abajo del simulador para más información.');
+    }
 
